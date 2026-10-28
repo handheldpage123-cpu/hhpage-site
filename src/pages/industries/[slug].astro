@@ -1,0 +1,61 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import Faqs from '@/components/Faqs.astro';
+import { getCollection, render } from 'astro:content';
+import { breadcrumbs, faqPage } from '@/lib/schema';
+import { site } from '@/data/site';
+
+export async function getStaticPaths() {
+  const industries = await getCollection('industries', ({ data }) => !data.draft);
+  return industries.map((i) => ({ params: { slug: i.id }, props: { entry: i } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const allServices = await getCollection('services', ({ data }) => !data.draft);
+const services = entry.data.recommendedServices.map((slug) => allServices.find((s) => s.id === slug)).filter(Boolean);
+const url = `${site.url}/industries/${entry.id}/`;
+const schema = [
+  breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Industries', url: site.url + '/industries/' }, { name: entry.data.shortName, url }]),
+  faqPage(entry.data.faqs),
+];
+---
+<Base title={entry.data.metaTitle ?? entry.data.title} description={entry.data.description} schema={schema} datePublished={entry.data.datePublished} dateModified={entry.data.dateModified} markdownPath={`/industries/${entry.id}.md`}>
+  <PageHero crumbs={[{ name: 'Industries', href: '/industries/' }, { name: entry.data.shortName, href: `/industries/${entry.id}/` }]} eyebrow={`${entry.data.shortName} practices`} title={entry.data.title} lede={entry.data.description} updated={entry.data.dateModified}>
+    <div class="cluster"><a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a></div>
+  </PageHero>
+
+  <section class="section--tight section--band">
+    <div class="container">
+      <p class="eyebrow">Sound familiar?</p>
+      <ul class="pains">{entry.data.painPoints.map((p) => <li>{p}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose"><Content /></div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="section-head"><h2>What we recommend for {entry.data.shortName.toLowerCase()} practices</h2></div>
+      <div class="grid grid--3">
+        {services.map((s) => s && (
+          <a class="card card--link" href={`/services/${s.id}/`}>
+            <h3>{s.data.shortName}</h3>
+            <p class="meta">{s.data.summary}</p>
+            <span class="more">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Faqs items={entry.data.faqs} />
+  <Cta />
+</Base>
+<style>
+  .pains { list-style: none; padding: 0; margin-top: var(--space-4); display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  .pains li { padding-left: var(--space-4); border-left: 3px solid var(--line); font-weight: 600; }
+</style>

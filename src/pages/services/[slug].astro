@@ -1,0 +1,65 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import Faqs from '@/components/Faqs.astro';
+import { getCollection, render } from 'astro:content';
+import { breadcrumbs, service as serviceSchema, faqPage } from '@/lib/schema';
+import { site } from '@/data/site';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services', ({ data }) => !data.draft);
+  return services.map((s) => ({ params: { slug: s.id }, props: { entry: s } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const industries = (await getCollection('industries', ({ data }) => !data.draft)).filter((i) => i.data.recommendedServices.includes(entry.id));
+const url = `${site.url}/services/${entry.id}/`;
+const schema = [
+  breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Services', url: site.url + '/services/' }, { name: entry.data.shortName, url }]),
+  serviceSchema({ url, name: entry.data.title, description: entry.data.description, audience: 'Dental, orthodontic, medical and tattoo removal practices' }),
+  faqPage(entry.data.faqs),
+];
+---
+<Base title={entry.data.metaTitle ?? entry.data.title} description={entry.data.description} schema={schema} datePublished={entry.data.datePublished} dateModified={entry.data.dateModified} markdownPath={`/services/${entry.id}.md`}>
+  <PageHero crumbs={[{ name: 'Services', href: '/services/' }, { name: entry.data.shortName, href: `/services/${entry.id}/` }]} eyebrow={entry.data.shortName} title={entry.data.title} lede={entry.data.description} updated={entry.data.dateModified}>
+    <div class="cluster">
+      <a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a>
+      <a class="btn btn--secondary" href="/contact/">Ask a question</a>
+    </div>
+  </PageHero>
+
+  <section class="section--tight section--band">
+    <div class="container grid grid--3">
+      {entry.data.outcomes.map((o) => <p class="outcome">{o}</p>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid detail">
+      <div class="prose"><Content /></div>
+      <aside class="card stack" aria-labelledby="includes">
+        <h2 id="includes" class="h4">What's included</h2>
+        <ul class="includes">{entry.data.includes.map((i) => <li>{i}</li>)}</ul>
+        {entry.data.startingAt && <p class="meta">From {entry.data.startingAt}</p>}
+        {industries.length > 0 && (
+          <div>
+            <p class="eyebrow">Works for</p>
+            <div class="cluster">{industries.map((i) => <a class="pill" href={`/industries/${i.id}/`}>{i.data.shortName}</a>)}</div>
+          </div>
+        )}
+      </aside>
+    </div>
+  </section>
+
+  <Faqs items={entry.data.faqs} title={`${entry.data.shortName}: questions people ask`} />
+  <Cta />
+</Base>
+<style>
+  .outcome { font-family: var(--font-display); font-weight: 600; font-size: var(--text-lg); padding-left: var(--space-4); border-left: 3px solid var(--accent); }
+  .detail { grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .detail { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; } }
+  .h4 { font-size: var(--text-lg); }
+  .includes { padding-left: 1.1em; display: grid; gap: var(--space-2); }
+  .pill { text-decoration: none; }
+</style>

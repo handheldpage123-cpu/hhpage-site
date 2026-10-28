@@ -1,0 +1,31 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import { getCollection, render } from 'astro:content';
+import { breadcrumbs, article } from '@/lib/schema';
+import { site } from '@/data/site';
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  return posts.map((p) => ({ params: { slug: p.id }, props: { entry: p } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const team = await getCollection('team');
+const author = team.find((t) => t.id === entry.data.author);
+const url = `${site.url}/blog/${entry.id}/`;
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const schema = [
+  breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Blog', url: site.url + '/blog/' }, { name: entry.data.title, url }]),
+  article({ url, headline: entry.data.title, description: entry.data.description, datePublished: entry.data.datePublished, dateModified: entry.data.dateModified, authorName: author?.data.name ?? site.name, authorUrl: `${site.url}/about/#${entry.data.author}` }),
+];
+---
+<Base title={entry.data.metaTitle ?? entry.data.title} description={entry.data.description} schema={schema} datePublished={entry.data.datePublished} dateModified={entry.data.dateModified} markdownPath={`/blog/${entry.id}.md`}>
+  <PageHero crumbs={[{ name: 'Blog', href: '/blog/' }, { name: entry.data.title, href: `/blog/${entry.id}/` }]} eyebrow={`${fmt(entry.data.datePublished)} · ${author?.data.name ?? site.name}, ${author?.data.role ?? ''}`} title={entry.data.title} lede={entry.data.description} updated={entry.data.dateModified} />
+  <article class="section"><div class="container prose"><Content /></div></article>
+  {author && (
+    <section class="section--tight"><div class="container"><div class="card author"><p class="eyebrow">Written by</p><h2 class="h4">{author.data.name}, {author.data.role}</h2><p class="meta">{author.data.bio}</p></div></div></section>
+  )}
+  <Cta />
+</Base>
+<style>.author { max-width: var(--measure); } .h4 { font-size: var(--text-lg); }</style>

@@ -1,0 +1,48 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+const title = 'Book a strategy call';
+const description = 'Book a free 20-minute strategy call with Hand Held Page. We look at your practice website, listings, reviews and ads and tell you what to fix first and what it would cost.';
+const calendar = import.meta.env.PUBLIC_GHL_CALENDAR_URL as string | undefined;
+---
+<Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Book a call', url: site.url + '/book/' }])]} markdownPath="/book.md">
+  <PageHero crumbs={[{ name: 'Book a call', href: '/book/' }]} eyebrow="Free strategy call" title="Pick a time. We'll do the homework before we talk." lede="Twenty minutes. Before the call we look at your site, your Google Business Profile, your reviews and your competitors, so the call is about what to do, not what you do." />
+  <section class="section section--tight">
+    <div class="container grid book">
+      <div class="card">
+        {/* GHL calendar embed (Q16). Loaded lazily so it never blocks the page. */}
+        {calendar ? (
+          <iframe src={calendar} title="Book a strategy call" loading="lazy" style="width:100%;min-height:720px;border:0;" id="ghl-calendar"></iframe>
+        ) : (
+          <div class="stack">
+            <h2 class="h3">Calendar coming online</h2>
+            <p class="meta">The booking calendar is being connected. Until then, call <a href={`tel:${site.phoneHref}`}>{site.phone}</a> or <a href="/contact/">send a message</a> with two or three times that work for you.</p>
+          </div>
+        )}
+      </div>
+      <aside class="stack">
+        <div class="card stack">
+          <h2 class="h3">What we cover</h2>
+          <ol class="agenda">
+            <li>Where your new patients come from now</li>
+            <li>Your site, listings and reviews next to the competition</li>
+            <li>The two or three changes most likely to move the number</li>
+            <li>What each costs, in writing</li>
+          </ol>
+        </div>
+        <div class="card stack">
+          <h2 class="h3">No pitch</h2>
+          <p class="meta">If we are not the right fit, we will say so and point you somewhere better.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .book { grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .book { grid-template-columns: 1.5fr 1fr; align-items: start; } }
+  .h3 { font-size: var(--text-xl); }
+  .agenda { padding-left: 1.2em; display: grid; gap: var(--space-2); font-size: var(--text-sm); }
+</style>

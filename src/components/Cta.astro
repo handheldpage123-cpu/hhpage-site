@@ -1,0 +1,34 @@
+---
+import { site } from '@/data/site';
+interface Props { title?: string; body?: string; primary?: { label: string; href: string }; secondary?: { label: string; href: string } | null; }
+const {
+  title = 'Ready to see what simple, well-run marketing can do?',
+  body = 'A 20-minute call. No deck, no pressure. You leave with a clear read on what is working, what is not, and what it would cost to fix.',
+  primary = site.primaryCta,
+  secondary = { label: 'Or send a message', href: '/contact/' },
+} = Astro.props;
+---
+<section class="cta section">
+  <div class="container">
+    <div class="cta__box">
+      <div class="cta__text">
+        <h2>{title}</h2>
+        <p>{body}</p>
+      </div>
+      <div class="cluster">
+        <a class="btn btn--primary" href={primary.href}>{primary.label}</a>
+        {secondary && <a class="btn btn--secondary" href={secondary.href}>{secondary.label}</a>}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  /* Inverted panel in light mode; a bordered surface in dark mode (an inverted panel there would be glaring). */
+  .cta__box { --cta-bg: var(--ink); --cta-fg: var(--paper); --cta-muted: var(--line); background: var(--cta-bg); color: var(--cta-fg); border-radius: var(--radius-lg); padding: var(--space-12) var(--space-8); display: grid; gap: var(--space-8); border: 1px solid var(--cta-bg); }
+  @media (min-width: 800px) { .cta__box { grid-template-columns: 1fr auto; align-items: center; } }
+  .cta__text { display: grid; gap: var(--space-3); max-width: var(--measure); }
+  .cta__text p { color: var(--cta-muted); }
+  .cta .btn--secondary { color: var(--cta-fg); border-color: var(--cta-muted); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta__box { --cta-bg: var(--surface); --cta-fg: var(--ink); --cta-muted: var(--muted); border-color: var(--line); } }
+  :root[data-theme="dark"] .cta__box { --cta-bg: var(--surface); --cta-fg: var(--ink); --cta-muted: var(--muted); border-color: var(--line); }
+</style>

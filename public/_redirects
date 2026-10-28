@@ -1,0 +1,32 @@
+# 301 redirects from the old WordPress URLs (Cloudflare reads this file at the root of the build).
+# Old service pages carry link equity.
+/pay-per-click/        /services/paid-search/               301
+/local-seo/            /services/seo/                       301
+/development/          /services/web-design-development/    301
+/review-management/    /services/review-management/         301
+/portfolio/            /work/                               301
+/book-with-steven/     /book/                               301
+
+# Client-only pages from the old site. CONFIRM before launch (DECISIONS.md): these may still be in use by clients.
+/billing/              /support/                            302
+/ach/                  /support/                            302
+/ach-payment/          /support/                            302
+
+# Test and client-landing pages left on the old site: send home.
+/sample-page/          /                                    301
+/typography/           /                                    301
+/test/                 /                                    301
+/bottom-bar/           /                                    301
+/wil/                  /                                    301
+/star/                 /                                    301
+/starnews/             /                                    301
+/astanza/              /                                    301
+/fb-tea/               /                                    301
+/willett-ortho/        /                                    301
+
+# WordPress leftovers
+/wp-admin/*            /                                    301
+/wp-login.php          /                                    301
+/feed/                 /blog/                               301
+/category/*            /blog/                               301
+/author/*              /about/                              301

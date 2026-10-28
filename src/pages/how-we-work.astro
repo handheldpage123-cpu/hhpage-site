@@ -1,0 +1,59 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+const title = 'How we work';
+const description = 'How Hand Held Page runs a practice marketing engagement: fixed prices, no long contracts, you talk to the people doing the work, and you own everything. Simple on purpose.';
+const steps = [
+  { n: '01', t: 'A short call', d: 'Twenty minutes. We look at your site, listings, reviews and ads next to the practice down the street and tell you what we would change first.' },
+  { n: '02', t: 'A written plan with a number', d: 'What we will do, in what order, and what it costs. Fixed. If it is a website, that is the price. If it is a monthly service, that is the monthly fee.' },
+  { n: '03', t: 'We do the work', d: 'The people you met on the call do the work. There is no account manager layer. You will get a question from us when we need something and silence when we do not.' },
+  { n: '04', t: 'You see what it produced', d: 'A short monthly report: what moved, what it cost, what we are doing next. If something is not working, we say so and change it.' },
+];
+---
+<Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'How we work', url: site.url + '/how-we-work/' }])]} markdownPath="/how-we-work.md">
+  <PageHero crumbs={[{ name: 'How we work', href: '/how-we-work/' }]} eyebrow="How we work" title="Simple on purpose." lede="Agencies have a habit of over-complicating marketing so they can charge more than the work is worth. We run things the other way." />
+  <section class="section section--tight">
+    <div class="container">
+      <ol class="steps">
+        {steps.map((s) => (
+          <li class="step">
+            <span class="step__n">{s.n}</span>
+            <div class="stack"><h2 class="h3">{s.t}</h2><p>{s.d}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  <section class="section section--band">
+    <div class="container grid grid--2">
+      <div class="prose">
+        <h2>What we promise</h2>
+        <ul>
+          <li><strong>Fixed prices.</strong> Projects are priced by scope, not by the hour. The number in the plan is the number on the invoice.</li>
+          <li><strong>No long-term contracts.</strong> Monthly services run month to month. If it is not working, you can leave.</li>
+          <li><strong>You own everything.</strong> Your website, your domain, your ad accounts, your data. We will hand it all over if you ever go.</li>
+          <li><strong>Support seven days a week.</strong> A real person answers.</li>
+        </ul>
+      </div>
+      <div class="prose">
+        <h2>What we skip</h2>
+        <ul>
+          <li>Brand workshops and strategy decks that do not change what a patient sees.</li>
+          <li>Bundles with line items you will never use.</li>
+          <li>Percentage-of-spend ad fees that reward spending more.</li>
+          <li>Reports designed to be impressive rather than readable.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <Cta />
+</Base>
+<style>
+  .steps { list-style: none; padding: 0; display: grid; gap: var(--space-8); }
+  .step { display: grid; grid-template-columns: auto 1fr; gap: var(--space-6); align-items: start; max-width: 70ch; }
+  .step__n { font-family: var(--font-mono); color: var(--accent); font-size: var(--text-lg); padding-top: 0.2em; }
+  .h3 { font-size: var(--text-xl); }
+</style>

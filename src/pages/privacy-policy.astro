@@ -1,0 +1,23 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import { site } from '@/data/site';
+const title = 'Privacy policy';
+const description = 'How Hand Held Page collects, uses and protects information submitted through hhpage.com, including forms, analytics and the services we provide to clients.';
+---
+<Base title={title} description={description} markdownPath="/privacy-policy.md">
+  <PageHero crumbs={[{ name: 'Privacy policy', href: '/privacy-policy/' }]} title="Privacy policy" updated={new Date('2026-10-28')} />
+  <section class="section section--tight">
+    <div class="container prose">
+      <p><em>Draft. Replace with the approved policy before launch; the current hhpage.com policy can be migrated here.</em></p>
+      <h2>What we collect</h2>
+      <p>When you submit a form on this site we collect what you type: your name, practice, email, phone and message. We use analytics (Google Analytics 4) to understand how the site is used; IP addresses are anonymized.</p>
+      <h2>How we use it</h2>
+      <p>To reply to you, to provide services you have asked for, and to improve this site. We do not sell your information.</p>
+      <h2>Where it goes</h2>
+      <p>Form submissions are stored in our customer relationship system. We use Google for analytics and advertising measurement.</p>
+      <h2>Your choices</h2>
+      <p>Email <a href={`mailto:${site.email}`}>{site.email}</a> to see, correct or delete what we hold about you.</p>
+    </div>
+  </section>
+</Base>

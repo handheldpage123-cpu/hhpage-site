@@ -1,0 +1,27 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+const industries = (await getCollection('industries', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const title = 'Industries';
+const description = 'Marketing playbooks for dental, orthodontic, medical and tattoo removal practices, refined over fifteen years in healthcare. See what works in your specialty.';
+---
+<Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Industries', url: site.url + '/industries/' }])]} markdownPath="/industries/index.md">
+  <PageHero crumbs={[{ name: 'Industries', href: '/industries/' }]} eyebrow="Industries" title="We know your specialty, because we have done this before." lede="Fifteen years of running marketing for practices means we already know what works in yours and what is a waste of your budget." />
+  <section class="section section--tight">
+    <div class="container grid grid--2">
+      {industries.map((i) => (
+        <article class="card">
+          <h2 class="h3"><a href={`/industries/${i.id}/`}>{i.data.shortName}</a></h2>
+          <p class="meta">{i.data.description}</p>
+          <a class="more" href={`/industries/${i.id}/`}>The {i.data.shortName.toLowerCase()} playbook →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <Cta />
+</Base>
+<style>.h3 { font-size: var(--text-xl); }</style>

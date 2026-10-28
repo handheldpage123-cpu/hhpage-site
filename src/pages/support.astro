@@ -1,0 +1,38 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import LeadForm from '@/components/LeadForm.astro';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+const title = 'Client support';
+const description = 'Existing Hand Held Page clients: submit a website or account support request here. Website changes, hosting, domain and email, ads, listings, reviews and billing. Replies within one business day.';
+---
+<Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Support', url: site.url + '/support/' }])]} markdownPath="/support.md">
+  <PageHero crumbs={[{ name: 'Support', href: '/support/' }]} eyebrow="Client support" title="Need something changed or fixed?" lede="Tell us what is happening and we will get it to the right person. We reply within one business day, usually the same day." />
+  <section class="section section--tight">
+    <div class="container grid support">
+      <div class="card"><LeadForm kind="support" heading="Submit a support request" /></div>
+      <aside class="stack">
+        <div class="card stack">
+          <h2 class="h3">Something urgent?</h2>
+          <p class="meta">Site down, forms not sending, or an ad account spending wrong: call us.</p>
+          <p><a href={`tel:${site.phoneHref}`}>{site.phone}</a><br /><a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></p>
+        </div>
+        <div class="card stack">
+          <h2 class="h3">What to include</h2>
+          <ul class="tips">
+            <li>The page URL, if it is about your website</li>
+            <li>A screenshot, if something looks wrong</li>
+            <li>What you expected to happen</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .support { grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .support { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+  .h3 { font-size: var(--text-xl); }
+  .tips { padding-left: 1.1em; display: grid; gap: var(--space-2); font-size: var(--text-sm); }
+</style>

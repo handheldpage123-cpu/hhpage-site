@@ -1,0 +1,26 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  crumbs?: { name: string; href: string }[];
+  updated?: Date;
+}
+const { eyebrow, title, lede, crumbs, updated } = Astro.props;
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+---
+<section class="page-hero">
+  <div class="container stack">
+    {crumbs && <Breadcrumbs items={crumbs} />}
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    <slot />
+    {updated && <p class="updated">Last updated {fmt(updated)}</p>}
+  </div>
+</section>
+<style>
+  .page-hero { padding-block: var(--space-12) var(--space-8); }
+  .page-hero h1 { max-width: 22ch; }
+</style>

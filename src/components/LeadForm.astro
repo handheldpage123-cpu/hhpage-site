@@ -1,0 +1,122 @@
+---
+/**
+ * Native form that posts JSON to a GoHighLevel inbound webhook (Q15).
+ * No iframe, no GHL script: nothing here affects Lighthouse.
+ *
+ * GHL setup (Phase 3): Automations → Workflows → new workflow → trigger
+ * "Inbound Webhook". Paste the webhook URL into Cloudflare as
+ * PUBLIC_GHL_WEBHOOK_CONTACT / PUBLIC_GHL_WEBHOOK_SUPPORT. Map the JSON
+ * fields below to contact fields, add the contact to the right pipeline,
+ * and send the internal notification (support@hhpage.com for support).
+ *
+ * Until the webhook URL is set, submissions fall back to a mailto draft so
+ * nothing is silently lost.
+ */
+interface Props {
+  kind: 'contact' | 'support';
+  heading?: string;
+  submitLabel?: string;
+}
+const { kind, heading, submitLabel = kind === 'support' ? 'Send support request' : 'Send message' } = Astro.props;
+const webhook = kind === 'support' ? import.meta.env.PUBLIC_GHL_WEBHOOK_SUPPORT : import.meta.env.PUBLIC_GHL_WEBHOOK_CONTACT;
+const id = `form-${kind}`;
+---
+<form class="form" id={id} data-kind={kind} data-webhook={webhook ?? ''} novalidate>
+  {heading && <h2>{heading}</h2>}
+  <div class="grid grid--2">
+    <div class="field">
+      <label for={`${id}-name`}>Your name</label>
+      <input id={`${id}-name`} name="name" type="text" autocomplete="name" required />
+    </div>
+    <div class="field">
+      <label for={`${id}-practice`}>Practice or business</label>
+      <input id={`${id}-practice`} name="practice" type="text" autocomplete="organization" />
+    </div>
+    <div class="field">
+      <label for={`${id}-email`}>Email</label>
+      <input id={`${id}-email`} name="email" type="email" autocomplete="email" inputmode="email" required />
+    </div>
+    <div class="field">
+      <label for={`${id}-phone`}>Phone <span class="hint">(optional)</span></label>
+      <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+    </div>
+  </div>
+  {kind === 'support' ? (
+    <div class="field">
+      <label for={`${id}-topic`}>What do you need help with?</label>
+      <select id={`${id}-topic`} name="topic" required>
+        <option value="">Choose one</option>
+        <option>Website change or bug</option>
+        <option>Hosting, domain or email</option>
+        <option>Google Ads or Local Services Ads</option>
+        <option>Google Business Profile or listings</option>
+        <option>Reviews</option>
+        <option>Billing or account</option>
+        <option>Something else</option>
+      </select>
+    </div>
+  ) : (
+    <div class="field">
+      <label for={`${id}-interest`}>What are you looking for?</label>
+      <select id={`${id}-interest`} name="interest">
+        <option value="">Not sure yet</option>
+        <option>New website</option>
+        <option>SEO</option>
+        <option>Google Ads or Local Services Ads</option>
+        <option>Listings and reviews</option>
+        <option>Everything, I want one team to run it</option>
+      </select>
+    </div>
+  )}
+  <div class="field">
+    <label for={`${id}-message`}>{kind === 'support' ? 'Tell us what is happening' : 'Anything we should know?'}</label>
+    <textarea id={`${id}-message`} name="message" required={kind === 'support'}></textarea>
+    {kind === 'support' && <span class="hint">Include the page URL if it is about your website.</span>}
+  </div>
+  <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website_url" type="text" tabindex="-1" autocomplete="off" /></label></div>
+  <div class="cluster">
+    <button class="btn btn--primary" type="submit">{submitLabel}</button>
+    <p class="form__status" role="status" aria-live="polite"></p>
+  </div>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-kind]').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('.form__status')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.dataset.state = '';
+      if (!form.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      if (data.website_url) return; // honeypot
+      delete data.website_url;
+      const payload = { ...data, form_name: form.dataset.kind, page: location.href, submitted_at: new Date().toISOString() };
+      const webhook = form.dataset.webhook;
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        if (webhook) {
+          const res = await fetch(webhook, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (!res.ok) throw new Error(String(res.status));
+        } else {
+          // Fallback until the GHL webhook is configured.
+          const body = Object.entries(payload).map(([k, v]) => `${k}: ${v}`).join('\n');
+          location.href = `mailto:support@hhpage.com?subject=${encodeURIComponent(`${form.dataset.kind} form`)}&body=${encodeURIComponent(body)}`;
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'form_submit', form_name: form.dataset.kind });
+        if (window.gtag) window.gtag('event', 'form_submit', { form_name: form.dataset.kind });
+        status.dataset.state = 'ok';
+        status.textContent = form.dataset.kind === 'support' ? 'Got it. We reply within one business day, usually faster.' : 'Thanks. We will be in touch within one business day.';
+        form.reset();
+      } catch {
+        status.dataset.state = 'error';
+        status.textContent = 'That did not go through. Email support@hhpage.com or call (832) 409-0868.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+  declare global { interface Window { dataLayer: unknown[]; gtag?: (...args: unknown[]) => void } }
+</script>

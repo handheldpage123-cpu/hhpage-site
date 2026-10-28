@@ -1,0 +1,46 @@
+---
+/**
+ * GA4 (Q12). Loads after the page is interactive so it never competes with
+ * content. GTM is used instead when site.analytics.gtm is set.
+ * Conversion events the site sends: `book_call_click`, `form_submit` (with
+ * form_name), `phone_click`, `email_click`. Wire these to GA4 key events.
+ */
+import { site } from '@/data/site';
+const { ga4, gtm } = site.analytics;
+---
+{gtm ? (
+  <script is:inline define:vars={{ gtm }}>
+    window.dataLayer = window.dataLayer || [];
+    window.addEventListener('load', () => {
+      const s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtm;
+      window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+      document.head.appendChild(s);
+    });
+  </script>
+) : ga4 ? (
+  <script is:inline define:vars={{ ga4 }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', ga4, { anonymize_ip: true, send_page_view: true });
+    window.addEventListener('load', () => {
+      const s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4;
+      document.head.appendChild(s);
+    });
+  </script>
+) : null}
+<script is:inline>
+  // Conversion click events (works with either GA4 direct or GTM via dataLayer).
+  document.addEventListener('click', (e) => {
+    const a = e.target && e.target.closest ? e.target.closest('a') : null;
+    if (!a) return;
+    const push = (name, params) => { window.dataLayer = window.dataLayer || []; window.dataLayer.push(Object.assign({ event: name }, params)); if (window.gtag) window.gtag('event', name, params); };
+    const href = a.getAttribute('href') || '';
+    if (href.startsWith('tel:')) push('phone_click', { link_url: href });
+    else if (href.startsWith('mailto:')) push('email_click', { link_url: href });
+    else if (href.startsWith('/book')) push('book_call_click', { link_text: a.textContent.trim(), page_path: location.pathname });
+  });
+</script>

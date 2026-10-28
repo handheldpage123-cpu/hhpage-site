@@ -1,0 +1,12 @@
+---
+import { site } from '@/data/site';
+---
+<section class="section--tight section--band">
+  <div class="container">
+    <div class="grid grid--4">
+      {site.proof.map((p) => (
+        <div class="stat"><span class="stat__value">{p.value}</span><span class="stat__label">{p.label}</span></div>
+      ))}
+    </div>
+  </div>
+</section>
