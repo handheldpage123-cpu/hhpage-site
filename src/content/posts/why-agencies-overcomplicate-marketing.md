@@ -1,6 +1,6 @@
 ---
 title: "Why agencies over-complicate practice marketing, and what to do instead"
-description: "Most practice marketing is simpler than agencies make it look. What actually moves new-patient numbers for dental and medical practices, and what you can."
+description: "Most practice marketing is simpler than agencies make it look. What actually moves new-patient numbers for a practice, and the add-ons you can safely ignore."
 summary: "What actually moves new-patient numbers for a practice, and the agency add-ons you can ignore."
 primaryKeyword: "dental marketing agency complexity"
 targetQuestions: ["What marketing does a dental practice actually need?", "Is my marketing agency overcharging?"]

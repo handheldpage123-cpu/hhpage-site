@@ -14,7 +14,7 @@ const { Content } = await render(entry);
 const team = await getCollection('team');
 const author = team.find((t) => t.id === entry.data.author);
 const url = `${site.url}/blog/${entry.id}/`;
-const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric', year: 'numeric' });
 const schema = [
   breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Blog', url: site.url + '/blog/' }, { name: entry.data.title, url }]),
   article({ url, headline: entry.data.title, description: entry.data.description, datePublished: entry.data.datePublished, dateModified: entry.data.dateModified, authorName: author?.data.name ?? site.name, authorUrl: `${site.url}/about/#${entry.data.author}` }),

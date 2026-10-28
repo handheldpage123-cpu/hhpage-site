@@ -2,7 +2,7 @@
 title: "Google Local Services Ads for practices"
 metaTitle: "Local Services Ads Management"
 shortName: "Local Services Ads"
-description: "Setup and management of Google Local Services Ads for dental and medical practices. Google Guaranteed badge, pay-per-lead pricing, lead disputes handled for."
+description: "Google Local Services Ads setup and management for dental and medical practices. Google Guaranteed badge, pay-per-lead pricing, and lead disputes handled."
 summary: "Google Local Services Ads setup and management for practices, with the Google Guaranteed badge and lead disputes handled."
 primaryKeyword: "local services ads for dentists"
 targetQuestions: ["What are Google Local Services Ads?", "Are Local Services Ads worth it for a dental practice?", "How do LSA leads get charged?"]

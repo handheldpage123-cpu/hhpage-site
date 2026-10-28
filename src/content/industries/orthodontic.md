@@ -2,7 +2,7 @@
 title: "Orthodontic practice marketing built around consults"
 metaTitle: "Orthodontic Marketing Agency"
 shortName: "Orthodontic"
-description: "Websites, SEO, Google Ads and reviews for orthodontists. Built to book consults for braces and clear aligners and to compete with DTC aligner brands in your."
+description: "Websites, SEO, Google Ads and reviews for orthodontists. Built to book consults for braces and clear aligners and to compete with DTC aligner brands locally."
 summary: "Marketing for orthodontists focused on booking consults for braces and clear aligners."
 primaryKeyword: "orthodontic marketing"
 targetQuestions: ["How do orthodontists get more consults?", "How do I compete with direct-to-consumer aligners?", "Should an orthodontist run Google Ads?"]

@@ -8,7 +8,7 @@ interface Props {
   updated?: Date;
 }
 const { eyebrow, title, lede, crumbs, updated } = Astro.props;
-const fmt = (d: Date) => d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', year: 'numeric' });
 ---
 <section class="page-hero">
   <div class="container stack">

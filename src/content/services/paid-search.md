@@ -2,7 +2,7 @@
 title: "Google Ads management that pays for itself"
 metaTitle: "Google Ads for Dental & Medical Practices"
 shortName: "Google Ads"
-description: "Google Ads management for dental, orthodontic, medical and tattoo removal practices. Tight campaigns, tracked calls and bookings, and a flat fee that spares."
+description: "Google Ads management for dental, orthodontic, medical and tattoo removal practices. Tight campaigns, tracked calls and bookings, and a flat management fee."
 summary: "Google Ads management for practices with tracked calls and bookings and a management fee that leaves the budget for ads."
 primaryKeyword: "google ads management for dentists"
 targetQuestions: ["How much should a dental practice spend on Google Ads?", "What is a good cost per lead for a medical practice?", "Why are my Google Ads not working?"]

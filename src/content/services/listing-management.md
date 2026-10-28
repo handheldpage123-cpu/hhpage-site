@@ -2,7 +2,7 @@
 title: "Listing management: one correct answer everywhere patients look"
 metaTitle: "Listing & Citation Management"
 shortName: "Listing management"
-description: "Google Business Profile, Apple, Bing, Yelp and healthcare directories kept accurate for dental and medical practices, so maps and AI assistants send."
+description: "Google Business Profile, Apple, Bing, Yelp and healthcare directories kept accurate for practices, so maps and AI assistants send patients to the right place."
 summary: "Keeps a practice's name, address, phone and hours consistent across Google, Apple, Bing, Yelp and healthcare directories."
 primaryKeyword: "listing management for medical practices"
 targetQuestions: ["Why does my practice show the wrong phone number on Google?", "What is citation management?", "Do listings affect local SEO?"]

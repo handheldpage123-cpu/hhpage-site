@@ -2,7 +2,7 @@
 title: "SEO for practices that want new patients, not just rankings"
 metaTitle: "Dental & Medical SEO Services"
 shortName: "SEO"
-description: "Local and organic SEO for dental, orthodontic and medical practices. Get found on Google and in AI search for the treatments you want more of, without."
+description: "Local and organic SEO for dental, orthodontic and medical practices. Get found on Google and in AI search for the treatments you want more of. No agency bloat."
 summary: "Local and organic SEO that gets practices found on Google and in AI answers for the treatments they want more of."
 primaryKeyword: "dental SEO services"
 targetQuestions: ["How long does SEO take to work for a dental practice?", "What is local SEO?", "Does SEO still matter with AI search?"]
