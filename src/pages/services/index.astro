@@ -1,0 +1,31 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+const services = (await getCollection('services', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const title = 'Services';
+const description = 'Websites, SEO, Google Ads and Local Services Ads, listings, reviews, social media and accessibility for dental, orthodontic and medical practices. Simple plans, clear pricing.';
+---
+<Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Services', url: site.url + '/services/' }])]} markdownPath="/services/index.md">
+  <PageHero crumbs={[{ name: 'Services', href: '/services/' }]} eyebrow="Services" title="Everything a practice needs online. Nothing it doesn't." lede="Most practices start with the Essentials plan: website hosting and management, listing management, reviews displayed on your site, and the EqualBrowse accessibility widget, for one monthly fee. Google Ads and advanced review management are priced on their own." />
+  <section class="section section--tight">
+    <div class="container grid grid--2">
+      {services.map((s) => (
+        <article class="card">
+          <h2 class="h3"><a href={`/services/${s.id}/`}>{s.data.shortName}</a>{!s.data.featured && <span class="pill">On request</span>}</h2>
+          <p class="meta">{s.data.description}</p>
+          <ul class="outcomes">{s.data.outcomes.slice(0, 2).map((o) => <li>{o}</li>)}</ul>
+          <a class="more" href={`/services/${s.id}/`}>About {s.data.shortName.toLowerCase()} →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <Cta />
+</Base>
+<style>
+  .h3 { font-size: var(--text-xl); display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+  .outcomes { padding-left: 1.1em; display: grid; gap: var(--space-1); font-size: var(--text-sm); }
+</style>

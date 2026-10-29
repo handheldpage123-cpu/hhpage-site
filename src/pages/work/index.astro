@@ -1,0 +1,38 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+const studies = (await getCollection('caseStudies', ({ data }) => !data.draft)).sort((a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime());
+const title = 'Our work';
+const description = 'Case studies from dental, orthodontic, medical and tattoo removal practices: what we changed, what it cost, and what happened to the numbers.';
+---
+<Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Work', url: site.url + '/work/' }])]} markdownPath="/work/index.md">
+  <PageHero crumbs={[{ name: 'Work', href: '/work/' }]} eyebrow="Work" title="What happened to the numbers." lede="Every case study shows the before, the after, and what we did in between. We are adding these as clients approve them." />
+  <section class="section section--tight">
+    <div class="container">
+      {studies.length === 0 ? (
+        <div class="card stack">
+          <h2 class="h3">Case studies are being written up now</h2>
+          <p class="meta">We work with 100+ practices and are collecting before-and-after numbers for the first set. In the meantime, ask us on a call and we will walk you through a practice like yours.</p>
+          <a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a>
+        </div>
+      ) : (
+        <div class="grid grid--2">
+          {studies.map((c) => (
+            <a class="card card--link" href={`/work/${c.id}/`}>
+              <p class="eyebrow">{c.data.industry}</p>
+              <h2 class="h3">{c.data.title}</h2>
+              <p class="meta">{c.data.summary}</p>
+              <span class="more">Read the case study →</span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+  <Cta />
+</Base>
+<style>.h3 { font-size: var(--text-xl); }</style>

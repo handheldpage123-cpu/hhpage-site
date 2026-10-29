@@ -1,0 +1,117 @@
+---
+import Base from '@/layouts/Base.astro';
+import ProofBar from '@/components/ProofBar.astro';
+import Cta from '@/components/Cta.astro';
+import Faqs from '@/components/Faqs.astro';
+import { site } from '@/data/site';
+import { getCollection } from 'astro:content';
+import { faqPage } from '@/lib/schema';
+
+const services = (await getCollection('services', ({ data }) => !data.draft && data.featured)).sort((a, b) => a.data.order - b.data.order);
+const industries = (await getCollection('industries', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order).map((f) => ({ q: f.data.question, a: f.data.answer }));
+
+const title = site.name;
+const description = site.description;
+---
+<Base title={title} description={description} schema={[faqPage(faqs)]} markdownPath="/index.md">
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy stack">
+        <p class="eyebrow">Web design and digital marketing for practices</p>
+        <h1>Practice marketing, kept simple and priced fairly.</h1>
+        <p class="lede">We build websites and run SEO, Google Ads, listings and reviews for dental, orthodontic, medical and tattoo removal practices. We keep it simple because simple is what works, and we will never push you to spend more than you need to.</p>
+        <div class="cluster">
+          <a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a>
+          <a class="btn btn--secondary" href="/how-we-work/">How we work</a>
+        </div>
+      </div>
+      <aside class="hero__aside" aria-label="What you get">
+        <p class="eyebrow">The deal</p>
+        <ul>
+          <li>Clear pricing, agreed before work starts.</li>
+          <li>Month-to-month on monthly services.</li>
+          <li>You talk to the people doing the work.</li>
+          <li>You own your website and your data.</li>
+          <li>Real support, Monday to Friday.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <ProofBar />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Services</p>
+        <h2>A few things move a practice's numbers. We do those well.</h2>
+        <p class="lede">Most practices start with our Essentials plan (website hosting and management, listings, reviews on your site, accessibility) and add Google Ads or advanced review management when the numbers justify it.</p>
+      </div>
+      <div class="grid grid--3">
+        {services.map((s) => (
+          <a class="card card--link" href={`/services/${s.id}/`}>
+            <h3>{s.data.shortName}</h3>
+            <p class="meta">{s.data.summary}</p>
+            <span class="more">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--band">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Industries</p>
+        <h2>Built for the way patients find a practice</h2>
+        <p class="lede">We have run the same playbooks for fifteen years in healthcare. Pick your specialty for what works there.</p>
+      </div>
+      <div class="grid grid--4">
+        {industries.map((i) => (
+          <a class="card card--link" href={`/industries/${i.id}/`}>
+            <h3>{i.data.shortName}</h3>
+            <p class="meta">{i.data.summary}</p>
+            <span class="more">See the playbook →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2 why">
+        <div class="stack">
+          <p class="eyebrow">Why practices switch to us</p>
+          <h2>Marketing is simpler than most agencies make it look.</h2>
+          <p>A fast site with a page per treatment, an active Google profile, consistent listings, a steady flow of reviews, and ads only where the margins justify them. We do those well and skip the rest. We are transparent about what is working and what is not, and we let you make the spending decisions with that in front of you.</p>
+          <p><a href="/how-we-work/">Read how we work →</a></p>
+        </div>
+        <div class="card stack">
+          <h3>What a first call covers</h3>
+          <ol>
+            <li>Where your new patients come from now, as far as the data shows.</li>
+            <li>What your site, listings and reviews look like next to the practice down the street.</li>
+            <li>The two or three changes most likely to move the number.</li>
+            <li>What each would cost, in writing.</li>
+          </ol>
+          <a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Faqs items={faqs} />
+  <Cta />
+</Base>
+
+<style>
+  .hero { padding-block: var(--space-16) var(--space-12); }
+  .hero__inner { display: grid; gap: var(--space-8); align-items: start; }
+  @media (min-width: 900px) { .hero__inner { grid-template-columns: 3fr 2fr; } }
+  .hero h1 { max-width: 18ch; }
+  .hero__aside { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: var(--space-6); display: grid; gap: var(--space-3); }
+  .hero__aside ul { padding-left: 1.1em; display: grid; gap: var(--space-2); font-weight: 600; }
+  .why ol { padding-left: 1.25em; display: grid; gap: var(--space-2); }
+</style>

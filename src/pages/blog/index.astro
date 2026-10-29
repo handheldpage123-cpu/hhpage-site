@@ -1,0 +1,31 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import { getCollection } from 'astro:content';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort((a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime());
+const team = await getCollection('team');
+const authorName = (slug: string) => team.find((t) => t.id === slug)?.data.name ?? 'Hand Held Page';
+const fmt = (d: Date) => d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric', year: 'numeric' });
+const title = 'Blog';
+const description = 'Plain-language notes on practice marketing from Hand Held Page: what works for dental, orthodontic and medical practices, what to ignore, and what things should cost.';
+---
+<Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Blog', url: site.url + '/blog/' }])]} markdownPath="/blog/index.md">
+  <PageHero crumbs={[{ name: 'Blog', href: '/blog/' }]} eyebrow="Blog" title="Notes on practice marketing, without the jargon." lede="Short, practical, and written by the people who do the work." />
+  <section class="section section--tight">
+    <div class="container grid grid--2">
+      {posts.map((p) => (
+        <article class="card">
+          <p class="eyebrow">{fmt(p.data.datePublished)} · {authorName(p.data.author)}</p>
+          <h2 class="h3"><a href={`/blog/${p.id}/`}>{p.data.title}</a></h2>
+          <p class="meta">{p.data.description}</p>
+          <a class="more" href={`/blog/${p.id}/`}>Read →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+  <Cta />
+</Base>
+<style>.h3 { font-size: var(--text-xl); }</style>

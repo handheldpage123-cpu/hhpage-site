@@ -1,0 +1,38 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import Cta from '@/components/Cta.astro';
+import { getCollection, render } from 'astro:content';
+import { breadcrumbs } from '@/lib/schema';
+import { site } from '@/data/site';
+export async function getStaticPaths() {
+  const studies = await getCollection('caseStudies', ({ data }) => !data.draft);
+  return studies.map((c) => ({ params: { slug: c.id }, props: { entry: c } }));
+}
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const url = `${site.url}/work/${entry.id}/`;
+---
+<Base title={entry.data.title} description={entry.data.description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Work', url: site.url + '/work/' }, { name: entry.data.client, url }])]} datePublished={entry.data.datePublished} dateModified={entry.data.dateModified} markdownPath={`/work/${entry.id}.md`}>
+  <PageHero crumbs={[{ name: 'Work', href: '/work/' }, { name: entry.data.client, href: `/work/${entry.id}/` }]} eyebrow={entry.data.industry} title={entry.data.title} lede={entry.data.description} />
+  <section class="section--tight section--band">
+    <div class="container table-wrap">
+      <table class="results">
+        <thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Period</th></tr></thead>
+        <tbody>{entry.data.results.map((r) => <tr><td>{r.metric}</td><td>{r.before}</td><td>{r.after}</td><td>{r.period ?? ''}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+  <section class="section"><div class="container prose"><Content /></div></section>
+  {entry.data.quote && (
+    <section class="section--tight"><div class="container"><blockquote class="quote"><p>“{entry.data.quote.text}”</p><footer>{entry.data.quote.name}, {entry.data.quote.role}</footer></blockquote></div></section>
+  )}
+  <Cta />
+</Base>
+<style>
+  .results { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .results th, .results td { text-align: left; padding: var(--space-3); border-bottom: 1px solid var(--line); }
+  .results th { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .quote { margin: 0; padding-left: var(--space-6); border-left: 4px solid var(--accent); max-width: var(--measure); font-family: var(--font-display); font-size: var(--text-xl); }
+  .quote footer { font-family: var(--font-body); font-size: var(--text-sm); color: var(--muted); margin-top: var(--space-3); }
+</style>

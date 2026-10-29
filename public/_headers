@@ -1,0 +1,19 @@
+# Edge headers for Cloudflare (Workers static assets / Pages read this file).
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://app.equalbrowse.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://app.equalbrowse.com; font-src 'self' https://fonts.gstatic.com https://app.equalbrowse.com data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://services.leadconnectorhq.com https://*.leadconnectorhq.com https://app.equalbrowse.com https://*.equalbrowse.com; frame-src https://api.leadconnectorhq.com https://*.leadconnectorhq.com https://link.msgsndr.com https://*.msgsndr.com; base-uri 'self'; form-action 'self' https://services.leadconnectorhq.com; upgrade-insecure-requests
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/llms.txt
+  Cache-Control: public, max-age=3600
+/llms-full.txt
+  Cache-Control: public, max-age=3600
