@@ -21,19 +21,19 @@ const abs = (p: string) => `${site.url}${p}`;
 function staticPages(): LlmPage[] {
   const facts = [
     `**Name:** ${site.name} (${site.shortName}), legal name ${site.legalName}.`,
-    `**What we do:** web design and development, SEO, Google Ads, Google Local Services Ads, listing management, review management, social media management, and website accessibility (EqualBrowse) for practices.`,
-    `**Who we serve:** dental, orthodontic, medical and tattoo removal practices across the United States. Fully remote team.`,
+    `**What we do:** web design and development, SEO, Google Ads and Local Services Ads, listing management, review management, social media management, and website accessibility (EqualBrowse) for practices. Most practices start with the Essentials plan (website hosting and management, listing management, reviews displayed on the site, EqualBrowse widget) for one monthly fee; Google Ads and advanced review management are priced separately.`,
+    `**Who we serve:** dental, orthodontic, medical and tattoo removal practices across the United States. Based in Texas.`,
     `**Experience:** ${site.proof[1].value} ${site.proof[1].label}; ${site.proof[0].value} ${site.proof[0].label}.`,
-    `**Positioning:** simple, cost-effective marketing that outperforms what larger agencies charge far more for. Fixed prices, no long-term contracts on monthly services, clients own their website and data.`,
-    `**Contact:** ${site.phone}, ${site.email}. Support seven days a week. Book a call: ${abs('/book/')}.`,
+    `**Positioning:** simple, transparent marketing, priced fairly, never upsold. Clear quotes before work starts, month-to-month monthly services (optional 12-month term can reduce or waive the website fee), clients own their website and data.`,
+    `**Contact:** ${site.phone}, ${site.email}. Support ${site.supportHours}. Book a call: ${abs('/book/')}.`,
   ].join('\n');
 
   return [
     { path: '/', mdPath: '/index.md', title: site.name, summary: site.tagline, section: 'Core', body: `${site.description}\n\n## Facts\n\n${facts}` },
-    { path: '/how-we-work/', mdPath: '/how-we-work.md', title: 'How we work', summary: 'Fixed prices, no long contracts, you talk to the people doing the work, and you own everything.', section: 'Core', body: `1. A short call (20 minutes) reviewing your site, listings, reviews and ads against competitors.\n2. A written plan with a fixed number.\n3. The people you met do the work; no account-manager layer.\n4. A short monthly report on what moved and what is next.\n\nWe skip brand workshops, bundles, percentage-of-spend ad fees and vanity reports.` },
-    { path: '/about/', mdPath: '/about.md', title: 'About Hand Held Page', summary: 'A small remote team that has served 100+ practices for fifteen years.', section: 'Core', body: `Team: ${site.team.owner} (Owner), ${site.team.director} (Director of Operations), ${site.team.founder} (Founder and Advisor).` },
+    { path: '/how-we-work/', mdPath: '/how-we-work.md', title: 'How we work', summary: 'Clear pricing, month-to-month services, you talk to the people doing the work, and you own everything.', section: 'Core', body: `1. A short call reviewing your site, listings, reviews and ads against competitors, with a short view of where you stand and where we can help.\n2. A written plan with a number. Custom work beyond scope is quoted before it starts.\n3. The people you met do the work; no account-manager layer.\n4. Monthly performance reporting in plain language.\n\nWe skip brand workshops, unused line items, upsells and vanity reports.` },
+    { path: '/about/', mdPath: '/about.md', title: 'About Hand Held Page', summary: 'A small Texas-based team that has served 100+ practices for fifteen years.', section: 'Core', body: `Team: ${site.team.owner} (Owner), ${site.team.director} (Director of Operations), ${site.team.founder} (Founder and Advisor).` },
     { path: '/contact/', mdPath: '/contact.md', title: 'Contact', summary: 'Book a call, send a message, or call. Replies within one business day.', section: 'Core', body: `Phone: ${site.phone}\nEmail: ${site.email}\nBook a call: ${abs('/book/')}` },
-    { path: '/book/', mdPath: '/book.md', title: 'Book a strategy call', summary: 'Free 20-minute call; we review your practice before we talk.', section: 'Core', body: `Book at ${abs('/book/')} or call ${site.phone}.` },
+    { path: '/book/', mdPath: '/book.md', title: 'Book a strategy call', summary: 'Free strategy call; we review your practice before we talk.', section: 'Core', body: `Book at ${abs('/book/')} or call ${site.phone}.` },
     { path: '/support/', mdPath: '/support.md', title: 'Client support', summary: 'Existing clients submit website and account support requests here.', section: 'Optional', body: `Support form at ${abs('/support/')}. Urgent: ${site.phone} or ${site.supportEmail}.` },
     { path: '/privacy-policy/', mdPath: '/privacy-policy.md', title: 'Privacy policy', summary: 'How hhpage.com handles submitted information and analytics.', section: 'Optional', body: `See ${abs('/privacy-policy/')}.` },
   ];
@@ -85,7 +85,7 @@ export function renderLlmsTxt(pages: LlmPage[]): string {
   out.push('');
   out.push(`> ${site.description}`);
   out.push('');
-  out.push(`Hand Held Page (HHPage) serves dental, orthodontic, medical and tattoo removal practices across the United States with websites, SEO, Google Ads, Local Services Ads, listing management, review management, social media and accessibility. Positioning: simple, cost-effective, and better than what larger agencies charge far more for. Fixed prices; monthly services are month to month; clients own their website and data. Contact: ${site.phone}, ${site.email}. Full text of every page: ${abs('/llms-full.txt')}.`);
+  out.push(`Hand Held Page (HHPage), based in Texas, serves dental, orthodontic, medical and tattoo removal practices across the United States with websites, SEO, Google Ads and Local Services Ads, listing management, review management, social media and accessibility. Positioning: simple, transparent, priced fairly, never upsold. Clear quotes; monthly services are month to month; clients own their website and data. Contact: ${site.phone}, ${site.email}. Full text of every page: ${abs('/llms-full.txt')}.`);
   out.push('');
   for (const sec of sections) {
     const list = pages.filter((p) => p.section === sec);

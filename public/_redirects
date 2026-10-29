@@ -6,6 +6,7 @@
 /review-management/    /services/review-management/         301
 /portfolio/            /work/                               301
 /book-with-steven/     /book/                               301
+/services/local-services-ads/  /services/paid-search/       301
 
 # Client-only pages from the old site. CONFIRM before launch (DECISIONS.md): these may still be in use by clients.
 /billing/              /support/                            302

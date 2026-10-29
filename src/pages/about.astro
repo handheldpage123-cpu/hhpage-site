@@ -8,18 +8,18 @@ import { breadcrumbs, person } from '@/lib/schema';
 import { site } from '@/data/site';
 const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
 const title = 'About';
-const description = 'Hand Held Page is a small, remote web and marketing team that has served 100+ dental, orthodontic, medical and tattoo removal practices for fifteen years. Meet the people you would work with.';
+const description = 'Hand Held Page is a small Texas-based web and marketing team that has served 100+ dental, orthodontic, medical and tattoo removal practices for fifteen years. Meet the people you would work with.';
 const url = site.url + '/about/';
 const schema = [breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'About', url }]), ...team.map((t) => person({ name: t.data.name, role: t.data.role, url: `${url}#${t.id}`, sameAs: t.data.linkedin ? [t.data.linkedin] : [] }))];
 ---
 <Base title={title} description={description} schema={schema} markdownPath="/about.md">
-  <PageHero crumbs={[{ name: 'About', href: '/about/' }]} eyebrow="About" title="A small team that has done this for a long time." lede="Hand Held Page started with a simple idea: practices were paying agency prices for work that did not need an agency. Fifteen years and a hundred-plus practices later, that is still the idea." />
+  <PageHero crumbs={[{ name: 'About', href: '/about/' }]} eyebrow="About" title="A small team that has done this for a long time." lede="Hand Held Page started with a simple idea: practices deserve marketing they can understand, from people they can reach. Fifteen years and a hundred-plus practices later, that is still the idea." />
   <ProofBar />
   <section class="section">
     <div class="container prose">
       <h2>What we believe</h2>
-      <p>Most practice marketing is simpler than the industry makes it look. A fast site, an active Google profile, consistent listings, steady reviews, and ads only where the margins justify them. Done well and consistently, that is what grows a practice. We do those things, we do them for a fair price, and we do not dress them up.</p>
-      <p>We are a fully remote team. We serve practices across the United States, and support is available seven days a week.</p>
+      <p>Most practice marketing is simpler than the industry makes it look. A fast site, an active Google profile, consistent listings, steady reviews, and ads only where the margins justify them. Done well and consistently, that is what grows a practice. We do those things, we do them for a fair price, and we do not dress them up or upsell them.</p>
+      <p>We are based in Texas and serve practices across the United States. Support is available Monday to Friday, 8am to 5pm Central.</p>
     </div>
   </section>
   <section class="section section--band">

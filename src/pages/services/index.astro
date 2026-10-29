@@ -7,10 +7,10 @@ import { breadcrumbs } from '@/lib/schema';
 import { site } from '@/data/site';
 const services = (await getCollection('services', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
 const title = 'Services';
-const description = 'Websites, SEO, Google Ads, Local Services Ads, listings, reviews, social media and accessibility for dental, orthodontic and medical practices. Priced simply, no bundles.';
+const description = 'Websites, SEO, Google Ads and Local Services Ads, listings, reviews, social media and accessibility for dental, orthodontic and medical practices. Simple plans, clear pricing.';
 ---
 <Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Services', url: site.url + '/services/' }])]} markdownPath="/services/index.md">
-  <PageHero crumbs={[{ name: 'Services', href: '/services/' }]} eyebrow="Services" title="Everything a practice needs online. Nothing it doesn't." lede="Each service stands on its own with a fixed price. Most practices start with one and add others as the numbers justify it." />
+  <PageHero crumbs={[{ name: 'Services', href: '/services/' }]} eyebrow="Services" title="Everything a practice needs online. Nothing it doesn't." lede="Most practices start with the Essentials plan: website hosting and management, listing management, reviews displayed on your site, and the EqualBrowse accessibility widget, for one monthly fee. Google Ads and advanced review management are priced on their own." />
   <section class="section section--tight">
     <div class="container grid grid--2">
       {services.map((s) => (

@@ -9,8 +9,18 @@ Record of choices that are not obvious from the code, with their status. Questio
 - **Theme:** light and dark, following the visitor's setting (Q11). Tokens from the proposal palette. Orange buttons use dark ink text (contrast rule).
 - **Primary conversion:** booked strategy call via `/book/` (Q1). Secondary: contact form, phone.
 - **Audience:** practice owners in dental, orthodontic, medical and tattoo removal (Q2).
-- **Positioning:** simple, cost-effective, outperforms larger agencies; agencies over-complicate so they can charge more. Woven through home, how-we-work, services.
-- **Services sold:** websites, SEO, Google Ads, Local Services Ads, listing management, review management, social media, accessibility/EqualBrowse (service-list flag resolved).
+- **Positioning (revised 2026-10-29 from Steven's review):** simple, transparent, priced fairly, never upsold. Do NOT claim to be cheaper than other agencies. Lay out performance and the competitive picture and let the client decide.
+- **Services sold:** websites, SEO, Google Ads (with Local Services Ads folded in; no separate LSA page, old URL 301s to Google Ads), listing management, review management, social media, accessibility/EqualBrowse.
+- **Essentials plan:** website hosting and management + listing management + reviews displayed on the site (page + pop-up widget) + EqualBrowse, one monthly fee. Google Ads and advanced review management (requests, monitoring, responses) priced separately. No prices shown on the site yet.
+- **Pricing language:** projects quoted up front; custom work beyond scope (e.g. extra content) billed hourly, agreed in advance. Monthly services month to month; optional 12-month term can reduce or waive the website dev fee (then month to month). Dev fee can also be paid up front or spread over 12 months. Google Ads: one-time setup fee (waived with 6-month commitment), monthly management fee as a % of spend with tier minimums; described, never priced, on the site.
+- **Support hours:** Monday to Friday, 8am to 5pm Central. No after-hours or weekend support. (Was "seven days a week"; corrected everywhere.)
+- **Location:** based in Texas, no public street address; serves the US. Organization schema carries addressRegion TX only.
+- **Strategy call:** may include a short presentation of where the client stands (example: proposals.hhpage.co/smile-solutions/). "No deck" language removed.
+- **CRM:** we do not wire into or manage client CRMs; we build forms, booking and tracking to work with their systems.
+- **Call tracking:** Google's own call reporting inside Google Ads. Dynamic number tracking available on request, not standard.
+- **SEO scope:** content built right at launch, then left alone unless performance stalls; GBP managed; business info syndicated to directories (not claimed); technical audit at launch and twice a year; blog/content marketing is a separate future product.
+- **Design:** clean and simple on the client's logo, colors and brand; not an over-designed showcase. Say so on the site.
+- **Reporting:** monthly performance reporting only.
 - **Years:** "15 years in healthcare marketing" (years flag resolved). The old site's "21 years" is retired.
 - **Forms:** native Astro forms posting JSON to GoHighLevel inbound webhooks (Q15). No GHL iframes or scripts. Mailto fallback until the webhook URLs are set in Cloudflare.
 - **Calendar:** GHL calendar embedded on `/book/` (Q16), lazy-loaded, only when `PUBLIC_GHL_CALENDAR_URL` is set.
@@ -30,7 +40,7 @@ Record of choices that are not obvious from the code, with their status. Questio
 
 ## Needs sign-off before launch
 
-- **Proof points marked `verify` in `site.ts`:** "92% of clients on page 1 of Google" and "99% of projects on time and on budget" came from the old site. Confirm or drop.
+- **Proof points:** "92% page 1" and "99% on time" removed 2026-10-29 as outdated. Two placeholder slots noted in `site.ts`; FOLLOW-UP: pull current numbers (e.g. map-pack share, patient requests tracked) and add them back.
 - **Founding year** in `site.ts` (2011, derived from "15 years"). Confirm.
 - **Redirects for `/billing/`, `/ach/`, `/ach-payment/`:** old site pages that clients may still use. Currently 302 to `/support/`. Decide: keep as pages, move to GHL, or confirm redirect.
 - **Privacy policy:** draft text; migrate the approved policy.

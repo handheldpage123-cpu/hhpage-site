@@ -5,7 +5,7 @@ import LeadForm from '@/components/LeadForm.astro';
 import { breadcrumbs } from '@/lib/schema';
 import { site } from '@/data/site';
 const title = 'Contact';
-const description = 'Talk to Hand Held Page about your practice website, SEO, Google Ads, listings or reviews. Book a call, send a message, or call us. Support seven days a week.';
+const description = 'Talk to Hand Held Page about your practice website, SEO, Google Ads, listings or reviews. Book a call, send a message, or call us Monday to Friday.';
 ---
 <Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Contact', url: site.url + '/contact/' }]), { '@type': 'ContactPage', '@id': site.url + '/contact/#contactpage', url: site.url + '/contact/' }]} markdownPath="/contact.md">
   <PageHero crumbs={[{ name: 'Contact', href: '/contact/' }]} eyebrow="Contact" title="Let's talk about your practice." lede="The fastest route is a call. If you would rather write, the form goes straight to us and we reply within one business day." />
@@ -14,13 +14,13 @@ const description = 'Talk to Hand Held Page about your practice website, SEO, Go
       <div class="stack">
         <div class="card stack">
           <h2 class="h3">Book a strategy call</h2>
-          <p class="meta">Twenty minutes, no deck. You leave with a clear read on what to fix first and what it costs.</p>
+          <p class="meta">A short call. We bring a quick look at where you stand today and where we can help, and you leave with a clear read on what to fix first and what it costs.</p>
           <a class="btn btn--primary" href="/book/">Pick a time</a>
         </div>
         <div class="card stack">
           <h2 class="h3">Call or email</h2>
           <p><a href={`tel:${site.phoneHref}`}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
-          <p class="meta">Support seven days a week. Existing clients: the <a href="/support/">support page</a> gets you to the right person fastest.</p>
+          <p class="meta">Monday to Friday, 8am to 5pm Central. Existing clients: the <a href="/support/">support page</a> gets you to the right person fastest.</p>
         </div>
       </div>
       <div class="card">

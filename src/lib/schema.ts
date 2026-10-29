@@ -19,6 +19,7 @@ export function organization() {
     telephone: site.phoneHref,
     email: site.email,
     areaServed: { '@type': 'Country', name: 'United States' },
+    address: { '@type': 'PostalAddress', addressRegion: 'TX', addressCountry: 'US' },
     foundingDate: String(site.founded),
     knowsAbout: ['Dental marketing', 'Orthodontic marketing', 'Medical practice marketing', 'Tattoo removal marketing', 'SEO', 'Google Ads', 'Web design', 'Review management', 'Listing management'],
     ...(sameAs.length ? { sameAs } : {}),

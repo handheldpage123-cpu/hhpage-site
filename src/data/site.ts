@@ -10,14 +10,16 @@ export const site = {
   shortName: 'HHPage',
   legalName: 'hhpage Inc.',
   url: 'https://hhpage.com',
-  tagline: 'Websites and marketing that outperform the big agencies at a fraction of the cost.',
+  tagline: 'Simple, transparent websites and marketing for practices.',
   description:
-    'Hand Held Page (HHPage) is a web design and digital marketing agency for dental, orthodontic, medical and tattoo removal practices. Simple, cost-effective websites, SEO, Google Ads, listings and reviews that outperform what larger agencies charge far more for.',
+    'Hand Held Page (HHPage) is a Texas-based web design and digital marketing agency for dental, orthodontic, medical and tattoo removal practices. Websites, SEO, Google Ads, listings and reviews, kept simple, priced fairly, and never upsold.',
   phone: '+1 (832) 409-0868',
   phoneHref: '+18324090868',
   email: 'support@hhpage.com',
   supportEmail: 'support@hhpage.com',
   serviceArea: 'United States',
+  basedIn: 'Texas',
+  supportHours: 'Monday to Friday, 8am to 5pm Central',
   founded: 2011, // verify
   // Primary conversion (Q1): booked strategy call.
   primaryCta: { label: 'Book a strategy call', href: '/book/' },
@@ -29,11 +31,11 @@ export const site = {
     instagram: '',
     googleBusiness: '',
   },
+  // Two more proof points are planned once current numbers are pulled (DECISIONS.md follow-up).
+  // Suggested: "x% of clients in the Google map pack" and "x new patient requests tracked last year".
   proof: [
     { value: '100+', label: 'practices served', verify: false },
     { value: '15', label: 'years in healthcare marketing', verify: false },
-    { value: '92%', label: 'of clients on page 1 of Google', verify: true },
-    { value: '99%', label: 'of projects on time and on budget', verify: true },
   ],
   team: {
     owner: 'Jacob Forbis',

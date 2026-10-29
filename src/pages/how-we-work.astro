@@ -5,12 +5,12 @@ import Cta from '@/components/Cta.astro';
 import { breadcrumbs } from '@/lib/schema';
 import { site } from '@/data/site';
 const title = 'How we work';
-const description = 'How Hand Held Page runs a practice marketing engagement: fixed prices, no long contracts, you talk to the people doing the work, and you own everything. Simple on purpose.';
+const description = 'How Hand Held Page runs a practice marketing engagement: clear pricing, month-to-month services, you talk to the people doing the work, and you own everything. Simple on purpose.';
 const steps = [
-  { n: '01', t: 'A short call', d: 'Twenty minutes. We look at your site, listings, reviews and ads next to the practice down the street and tell you what we would change first.' },
-  { n: '02', t: 'A written plan with a number', d: 'What we will do, in what order, and what it costs. Fixed. If it is a website, that is the price. If it is a monthly service, that is the monthly fee.' },
+  { n: '01', t: 'A short call', d: 'We look at your site, listings, reviews and ads next to the practice down the street, and walk you through a short view of where you stand today and where we think we can help.' },
+  { n: '02', t: 'A written plan with a number', d: 'What we will do, in what order, and what it costs. If it is a website, that is the price. If it is a monthly service, that is the monthly fee. Anything custom beyond that, we quote before we start.' },
   { n: '03', t: 'We do the work', d: 'The people you met on the call do the work. There is no account manager layer. You will get a question from us when we need something and silence when we do not.' },
-  { n: '04', t: 'You see what it produced', d: 'A short monthly report: what moved, what it cost, what we are doing next. If something is not working, we say so and change it.' },
+  { n: '04', t: 'You see the numbers', d: 'Monthly performance reporting in plain language: calls, bookings, rankings, spend. If something is not working, we say so.' },
 ];
 ---
 <Base title={title} description={description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'How we work', url: site.url + '/how-we-work/' }])]} markdownPath="/how-we-work.md">
@@ -32,18 +32,18 @@ const steps = [
       <div class="prose">
         <h2>What we promise</h2>
         <ul>
-          <li><strong>Fixed prices.</strong> Projects are priced by scope, not by the hour. The number in the plan is the number on the invoice.</li>
-          <li><strong>No long-term contracts.</strong> Monthly services run month to month. If it is not working, you can leave.</li>
+          <li><strong>Clear pricing.</strong> Projects are quoted by scope and the number in the plan is the number on the invoice. Custom work beyond scope is billed hourly, agreed in advance.</li>
+          <li><strong>No long-term contracts required.</strong> Monthly services run month to month. A 12-month term is an option that can reduce or waive the website fee, never a requirement.</li>
           <li><strong>You own everything.</strong> Your website, your domain, your ad accounts, your data. We will hand it all over if you ever go.</li>
-          <li><strong>Support seven days a week.</strong> A real person answers.</li>
+          <li><strong>A real person answers.</strong> Support Monday to Friday, 8am to 5pm Central.</li>
         </ul>
       </div>
       <div class="prose">
         <h2>What we skip</h2>
         <ul>
           <li>Brand workshops and strategy decks that do not change what a patient sees.</li>
-          <li>Bundles with line items you will never use.</li>
-          <li>Percentage-of-spend ad fees that reward spending more.</li>
+          <li>Line items you will never use. Our Essentials plan bundles only the things every practice uses.</li>
+          <li>Upsells. We lay out performance and the competitive picture and let you decide.</li>
           <li>Reports designed to be impressive rather than readable.</li>
         </ul>
       </div>
