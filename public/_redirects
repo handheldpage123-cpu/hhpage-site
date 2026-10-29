@@ -9,9 +9,8 @@
 /services/local-services-ads/  /services/paid-search/       301
 
 # Client-only pages from the old site. CONFIRM before launch (DECISIONS.md): these may still be in use by clients.
-/billing/              /support/                            302
-/ach/                  /support/                            302
-/ach-payment/          /support/                            302
+# /billing/ and /ach/ exist again as hidden pages (noindex).
+/ach-payment/          /ach/                                301
 
 # Test and client-landing pages left on the old site: send home.
 /sample-page/          /                                    301

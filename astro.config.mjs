@@ -11,7 +11,8 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/404') && !page.endsWith('.md/'),
+      // Hidden pages (billing, ach, proposals) are noindex and must never be listed.
+      filter: (page) => !page.includes('/404') && !page.endsWith('.md/') && !/\/(billing|ach|proposals)\//.test(page),
       changefreq: 'monthly',
     }),
   ],

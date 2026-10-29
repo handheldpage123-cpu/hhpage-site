@@ -1,0 +1,135 @@
+---
+/**
+ * Recreation of the legacy hhpage.com /billing (card) and /ach (bank) forms.
+ *
+ * INTENTIONALLY INERT. The old WordPress pages posted raw card and bank
+ * details through Gravity Forms. A static site must never collect those
+ * fields directly (PCI scope), so this form keeps the same layout and copy
+ * but every input is disabled and nothing is submitted anywhere.
+ *
+ * Follow-up (Monday › Operations › Internal Projects): replace this with a
+ * PCI-compliant hosted/tokenized payment page (Stripe, GHL Payments, etc.)
+ * that can (1) charge invoices and (2) capture a payment method for
+ * Google Ads billing. Until then the notice below points clients to support.
+ */
+import { site } from '@/data/site';
+interface Props {
+  kind: 'card' | 'ach';
+}
+const { kind } = Astro.props;
+const id = `form-${kind}`;
+const consent =
+  kind === 'card'
+    ? 'I authorize HHPage to charge the credit card indicated in this authorization form. I certify that I am an authorized user of this credit card.'
+    : 'I authorize HHPage to charge the bank account indicated in this authorization form. I certify that I am an authorized owner of this bank account.';
+---
+<div class="notice" role="status">
+  <strong>This form is temporarily unavailable.</strong>
+  To update your payment method or pay an invoice, email <a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a> or call <a href={`tel:${site.phoneHref}`}>{site.phone}</a> and we will send you a secure payment link.
+</div>
+
+<form class="form" id={id} data-kind={kind} novalidate aria-describedby={`${id}-note`}>
+  <p id={`${id}-note`} class="visually-hidden">All fields on this form are disabled while a secure payment page is being set up.</p>
+  <fieldset disabled class="fields">
+    <div class="field">
+      <span class="label">Name <span class="req">(Required)</span></span>
+      <div class="grid grid--2">
+        <div class="field"><input id={`${id}-first`} name="first_name" type="text" autocomplete="given-name" aria-label="First name" /><span class="hint">First</span></div>
+        <div class="field"><input id={`${id}-last`} name="last_name" type="text" autocomplete="family-name" aria-label="Last name" /><span class="hint">Last</span></div>
+      </div>
+    </div>
+    <div class="field">
+      <label for={`${id}-company`}>Company Name <span class="req">(Required)</span></label>
+      <input id={`${id}-company`} name="company" type="text" autocomplete="organization" />
+    </div>
+    <div class="grid grid--2">
+      <div class="field">
+        <label for={`${id}-email`}>Email <span class="req">(Required)</span></label>
+        <input id={`${id}-email`} name="email" type="email" autocomplete="email" inputmode="email" />
+      </div>
+      <div class="field">
+        <label for={`${id}-phone`}>Phone <span class="req">(Required)</span></label>
+        <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+      </div>
+    </div>
+    <div class="field">
+      <span class="label">Billing <span class="req">(Required)</span></span>
+      <div class="field"><input id={`${id}-street`} name="street" type="text" autocomplete="street-address" aria-label="Street address" /><span class="hint">Street Address</span></div>
+      <div class="grid grid--2">
+        <div class="field"><input id={`${id}-city`} name="city" type="text" autocomplete="address-level2" aria-label="City" /><span class="hint">City</span></div>
+        <div class="field"><input id={`${id}-state`} name="state" type="text" autocomplete="address-level1" aria-label="State, province or region" /><span class="hint">State / Province / Region</span></div>
+        <div class="field"><input id={`${id}-zip`} name="zip" type="text" autocomplete="postal-code" inputmode="numeric" aria-label="ZIP or postal code" /><span class="hint">ZIP / Postal Code</span></div>
+      </div>
+    </div>
+
+    {kind === 'card' ? (
+      <>
+        <div class="field">
+          <span class="label">Card Type <span class="req">(Required)</span></span>
+          <div class="choices">
+            <label><input type="radio" name="card_type" value="Visa" /> Visa</label>
+            <label><input type="radio" name="card_type" value="Master Card" /> Master Card</label>
+            <label><input type="radio" name="card_type" value="Amex" /> Amex</label>
+            <label><input type="radio" name="card_type" value="Other" /> Other</label>
+          </div>
+        </div>
+        <div class="field">
+          <label for={`${id}-cc`}>Credit Card Number <span class="req">(Required)</span></label>
+          <input id={`${id}-cc`} name="card_number" type="text" inputmode="numeric" autocomplete="off" />
+        </div>
+        <div class="grid grid--2">
+          <div class="field">
+            <label for={`${id}-exp`}>Expiration (MM/YYYY) <span class="req">(Required)</span></label>
+            <input id={`${id}-exp`} name="card_expiry" type="text" inputmode="numeric" autocomplete="off" placeholder="MM/YYYY" />
+          </div>
+          <div class="field">
+            <label for={`${id}-cvv`}>Security Code <span class="req">(Required)</span></label>
+            <input id={`${id}-cvv`} name="card_cvv" type="text" inputmode="numeric" autocomplete="off" />
+          </div>
+        </div>
+      </>
+    ) : (
+      <>
+        <div class="field">
+          <label for={`${id}-routing`}>Routing Number <span class="req">(Required)</span></label>
+          <input id={`${id}-routing`} name="routing_number" type="text" inputmode="numeric" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for={`${id}-account`}>Account Number <span class="req">(Required)</span></label>
+          <input id={`${id}-account`} name="account_number" type="text" inputmode="numeric" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for={`${id}-account2`}>Confirm Account Number <span class="req">(Required)</span></label>
+          <input id={`${id}-account2`} name="account_number_confirm" type="text" inputmode="numeric" autocomplete="off" />
+        </div>
+      </>
+    )}
+
+    <div class="field">
+      <label for={`${id}-message`}>Optional Message</label>
+      <textarea id={`${id}-message`} name="message"></textarea>
+    </div>
+    <div class="field">
+      <span class="label">Consent</span>
+      <label class="consent"><input type="checkbox" name="consent" value="yes" /> {consent}</label>
+    </div>
+    <div class="cluster">
+      <button class="btn btn--primary" type="submit" disabled>Submit</button>
+    </div>
+  </fieldset>
+</form>
+
+<style>
+  .notice { border: 1px solid var(--line); border-left: 4px solid var(--accent); background: var(--surface); padding: var(--space-4) var(--space-5); border-radius: var(--radius); margin-bottom: var(--space-6); font-size: var(--text-sm); }
+  .notice strong { display: block; margin-bottom: var(--space-1); }
+  .fields { display: grid; gap: var(--space-4); border: 0; padding: 0; margin: 0; min-width: 0; }
+  .fields:disabled { opacity: 0.7; }
+  .label { font-weight: 600; font-size: var(--text-sm); }
+  .req { color: var(--muted); font-weight: 400; font-style: italic; }
+  .choices, .consent { display: grid; gap: var(--space-2); font-size: var(--text-sm); }
+  .choices label, .consent { display: flex; gap: var(--space-2); align-items: flex-start; cursor: not-allowed; }
+  /* Global .field input rule stretches these; keep native radio/checkbox size. */
+  .choices input[type='radio'], .consent input[type='checkbox'] { width: 1rem; height: 1rem; min-height: 0; padding: 0; margin: 0.2em 0 0; flex: 0 0 auto; accent-color: var(--accent); }
+  .choices label { align-items: center; }
+  .choices label input { margin-top: 0; }
+</style>
