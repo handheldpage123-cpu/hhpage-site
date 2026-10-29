@@ -3,6 +3,10 @@
 User-agent: *
 Allow: /
 Disallow: /404/
+# Hidden pages: client billing forms and sales proposals (also noindex via meta + X-Robots-Tag).
+Disallow: /billing/
+Disallow: /ach/
+Disallow: /proposals/
 
 # AI search / answer engines (explicit allow so a future edge rule has something to match)
 User-agent: GPTBot

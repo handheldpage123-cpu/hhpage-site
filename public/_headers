@@ -17,3 +17,15 @@
   Cache-Control: public, max-age=3600
 /llms-full.txt
   Cache-Control: public, max-age=3600
+
+# Hidden pages: belt-and-braces noindex at the edge (meta robots is also set in the page).
+/billing/*
+  X-Robots-Tag: noindex, nofollow
+/billing
+  X-Robots-Tag: noindex, nofollow
+/ach/*
+  X-Robots-Tag: noindex, nofollow
+/ach
+  X-Robots-Tag: noindex, nofollow
+/proposals/*
+  X-Robots-Tag: noindex, nofollow

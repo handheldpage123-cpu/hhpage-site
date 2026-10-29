@@ -1,0 +1,30 @@
+---
+/**
+ * Hidden page. Recreated from the legacy hhpage.com/billing/ (card
+ * authorization). noindex, excluded from the sitemap, robots.txt, llms.txt
+ * and all navigation. See PaymentForm.astro for why the form is inert.
+ */
+import Base from '@/layouts/Base.astro';
+import PaymentForm from '@/components/PaymentForm.astro';
+const title = 'Billing';
+const description = 'Update your payment information with Hand Held Page.';
+---
+<Base title={title} description={description} noindex>
+  <section class="section">
+    <div class="container narrow stack">
+      <div class="intro">
+        <p class="eyebrow">Hand Held Page</p>
+        <h1>Billing</h1>
+        <p class="lede">Update your payment information using the secure form below.</p>
+        <p class="secure"><span class="lock" aria-hidden="true">🔒</span> Secure · SSL encryption</p>
+      </div>
+      <div class="card"><PaymentForm kind="card" /></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .narrow { max-width: 56rem; }
+  .intro { text-align: center; display: grid; gap: var(--space-3); justify-items: center; }
+  .intro .lede { margin-inline: auto; }
+  .secure { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+</style>

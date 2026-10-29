@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — hidden billing/ACH pages and hidden-page plumbing (2026-10-29)
+
+- `/billing/` and `/ach/` recreated from the legacy WordPress pages as hidden pages: `noindex` meta, `X-Robots-Tag` at the edge, `Disallow` in robots.txt, excluded from the sitemap, llms.txt and all navigation. The payment forms are inert (every field disabled, nothing posts) because a static site must not collect raw card/bank details; a secure payment page is tracked on the Operations board.
+- `/proposals/*` reserved with the same hidden-page treatment; the four proposal pages (dental, healthcare, med-spa, chiropractic-pt) port over once the `galaxy2jake/hhpage-proposals` source is available.
+- `_redirects`: `/billing/` and `/ach/` no longer bounce to `/support/`; `/ach-payment/` now 301s to `/ach/`.
+
 ## Unreleased — copy revisions from review round 2 (2026-10-29)
 
 - Google Ads: gateway-services strategy section, clean account per client, service pages as landing pages, call-tracking FAQ.
