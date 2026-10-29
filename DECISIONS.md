@@ -59,6 +59,8 @@ Record of choices that are not obvious from the code, with their status. Questio
 
 ## Phase 2 / 3
 
+- See COMPETITORS.md: specialty pages under each industry, a free "practice visibility check" secondary CTA, a founder/team voice block on home, Google Partner badge and review count if available, and 2–3 named case studies before launch.
+
 - Cloudflare project + launch checklist (prompt Phase 7, 12 items).
 - GHL: contact and support workflows (inbound webhook → pipeline → notification to support@hhpage.com), calendar, tracking number. Monday support queue optional later.
 - Headless CMS for the blog.
