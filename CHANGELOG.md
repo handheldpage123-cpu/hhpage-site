@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — copy revisions from review round 2 (2026-10-29)
+
+- Google Ads: gateway-services strategy section, clean account per client, service pages as landing pages, call-tracking FAQ.
+- Listing management: GBP managed + syndication; no per-directory claiming; provider listings as an add-on.
+- Review management: basic vs advanced plans, gatekeeping flow.
+- Social media: `featured: false`, hidden from home and footer, "On request" on the services index.
+- Accessibility: standards-first framing; widget is a usability aid.
+
 ## Unreleased — copy revisions from review round 1 (2026-10-29)
 
 - Positioning reframed: transparent and fairly priced, no "cheaper than agencies" claims.

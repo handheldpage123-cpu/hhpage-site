@@ -7,7 +7,7 @@ import { site } from '@/data/site';
 import { getCollection } from 'astro:content';
 import { faqPage } from '@/lib/schema';
 
-const services = (await getCollection('services', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const services = (await getCollection('services', ({ data }) => !data.draft && data.featured)).sort((a, b) => a.data.order - b.data.order);
 const industries = (await getCollection('industries', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
 const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order).map((f) => ({ q: f.data.question, a: f.data.answer }));
 

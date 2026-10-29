@@ -21,6 +21,11 @@ Record of choices that are not obvious from the code, with their status. Questio
 - **SEO scope:** content built right at launch, then left alone unless performance stalls; GBP managed; business info syndicated to directories (not claimed); technical audit at launch and twice a year; blog/content marketing is a separate future product.
 - **Design:** clean and simple on the client's logo, colors and brand; not an over-designed showcase. Say so on the site.
 - **Reporting:** monthly performance reporting only.
+- **Google Ads strategy (review round 2):** gateway services first for practices that need volume; high-margin/specialty once the schedule is full. New account per client inside the HHPage MCC by default. Ads point at service pages (built to serve SEO and ads); dedicated landing pages only as needed.
+- **Listings (round 2):** manage GBP directly; syndicate practice info to directories (never name the syndication vendor on the site); do not claim Apple/Yelp/Facebook as a matter of course; provider listings priced separately.
+- **Reviews (round 2):** Basic = reviews page + corner pop-up widget (in Essentials). Advanced = the WhyILike platform: requests by text/email, central inbox, responses, sharing to social/GBP, optional gatekeeping flow. Never name WhyILike on the site unless Steven says so.
+- **Social media (round 2):** currently outsourced. Page kept but `featured: false`: not on the home grid or footer, shown "On request" on the services index.
+- **Accessibility (round 2):** the site is designed to WCAG 2.2 AA; the widget helps patients use it and does not by itself make a site compliant. Copy says so.
 - **Years:** "15 years in healthcare marketing" (years flag resolved). The old site's "21 years" is retired.
 - **Forms:** native Astro forms posting JSON to GoHighLevel inbound webhooks (Q15). No GHL iframes or scripts. Mailto fallback until the webhook URLs are set in Cloudflare.
 - **Calendar:** GHL calendar embedded on `/book/` (Q16), lazy-loaded, only when `PUBLIC_GHL_CALENDAR_URL` is set.

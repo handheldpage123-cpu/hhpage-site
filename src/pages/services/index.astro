@@ -15,7 +15,7 @@ const description = 'Websites, SEO, Google Ads and Local Services Ads, listings,
     <div class="container grid grid--2">
       {services.map((s) => (
         <article class="card">
-          <h2 class="h3"><a href={`/services/${s.id}/`}>{s.data.shortName}</a></h2>
+          <h2 class="h3"><a href={`/services/${s.id}/`}>{s.data.shortName}</a>{!s.data.featured && <span class="pill">On request</span>}</h2>
           <p class="meta">{s.data.description}</p>
           <ul class="outcomes">{s.data.outcomes.slice(0, 2).map((o) => <li>{o}</li>)}</ul>
           <a class="more" href={`/services/${s.id}/`}>About {s.data.shortName.toLowerCase()} →</a>
@@ -26,6 +26,6 @@ const description = 'Websites, SEO, Google Ads and Local Services Ads, listings,
   <Cta />
 </Base>
 <style>
-  .h3 { font-size: var(--text-xl); }
+  .h3 { font-size: var(--text-xl); display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
   .outcomes { padding-left: 1.1em; display: grid; gap: var(--space-1); font-size: var(--text-sm); }
 </style>

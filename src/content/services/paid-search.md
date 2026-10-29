@@ -11,13 +11,13 @@ icon: "target"
 datePublished: 2026-10-28
 dateModified: 2026-10-29
 outcomes:
-  - "Campaigns built around the treatments with the best margin, not every service you list"
+  - "Campaigns aimed where your practice needs them: the gateway services that drive most new patients, or the high-margin specialty work once the schedule is full"
   - "Calls and bookings tracked as conversions, so you can see what the spend produced"
   - "Local Services Ads run alongside, with the Google Guaranteed badge and lead disputes handled"
 includes:
-  - "Account audit and rebuild if needed"
+  - "A clean account built for you inside our agency account (or a takeover of your existing one if you prefer)"
   - "Search campaigns by treatment, with negative keywords maintained weekly"
-  - "Landing pages built to convert, not your homepage"
+  - "Ads pointed at your service pages, which are built to work for search and ads alike; dedicated landing pages when a campaign needs one"
   - "Google's call and booking conversion tracking in Google Ads and GA4"
   - "Local Services Ads setup, verification, lead review and dispute filing"
   - "Weekly optimization, monthly performance reporting, no long-term contract"
@@ -29,18 +29,22 @@ faqs:
   - q: "What are Local Services Ads?"
     a: "Local Services Ads sit at the very top of Google for local searches, carry the Google Guaranteed badge, and charge per lead rather than per click. Dental, orthodontic and several medical categories are eligible in most US markets. We check your eligibility on the call and can run them with or without a regular Google Ads campaign."
   - q: "Do you do call tracking?"
-    a: "We use the call tracking Google provides inside Google Ads, which reports calls as conversions. Dynamic number tracking by source is something we can set up if a practice needs it, but it is not part of the standard plan."
+    a: "We use the call tracking Google provides inside Google Ads, which reports calls as conversions. That tells you the thing that matters most: whether the ads are working. Tracking calls from other channels is more directional, so we do not set it up by default, but we can if you ask."
 ---
+
+## Gateway services first, specialty work when you are ready
+
+Most new patients come in through a handful of gateway services, the everyday treatments that drive the bulk of new-patient volume. A newer practice, or one that needs the schedule filled, gets its ad budget pointed there. An established practice that already attracts enough new patients can shift ads and SEO toward the high-margin and specialty procedures it wants more of. We decide with you, based on where the practice is, and we revisit it as things change.
 
 ## Ads that are accountable
 
-Most practice ad accounts leak. Broad keywords, the homepage as the landing page, no conversion tracking. We run it the other way: narrow campaigns around the treatments worth paying for, a dedicated landing page for each, and calls and bookings tracked so you can see what the spend produced.
+Most practice ad accounts leak. Broad keywords, no conversion tracking, nobody watching the search terms. We run it the other way: narrow campaigns around the treatments worth paying for, calls and bookings tracked as conversions, and a weekly look at what is actually producing.
 
 ## How we run an account
 
-1. Audit what you have and keep anything that works.
-2. Rebuild around the two or three treatments worth paying for.
-3. Build a landing page for each.
+1. Start clean. We usually build a new account for you inside our agency account; we can take over an existing one if you prefer, but a clean slate is faster and tidier.
+2. Build around the two or three treatments worth paying for.
+3. Send the traffic to your service pages. We build those to work for search and for ads, so the site stays simple. A dedicated landing page is an option when a campaign calls for it.
 4. Track calls, forms and bookings as conversions.
 5. Optimize weekly and report monthly in plain language.
 

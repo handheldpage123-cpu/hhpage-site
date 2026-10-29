@@ -30,6 +30,7 @@ const services = defineCollection({
     outcomes: z.array(z.string()).min(2),
     includes: z.array(z.string()).min(3),
     startingAt: z.string().optional(), // e.g. "$X/mo" once pricing is approved
+    featured: z.boolean().default(true), // false = page exists but is not promoted on home/footer
     faqs: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     schemaType: z.literal('Service').default('Service'),
   }),

@@ -1,30 +1,30 @@
 ---
-title: "Website accessibility with EqualBrowse"
+title: "Website accessibility, built in"
 metaTitle: "Website Accessibility (ADA / WCAG)"
 shortName: "Accessibility"
-description: "EqualBrowse accessibility widget plus WCAG 2.2 fixes for practice websites. Helps patients with disabilities use your site and lowers ADA demand-letter risk."
-summary: "EqualBrowse accessibility widget and WCAG fixes that help patients with disabilities use a practice website and reduce ADA risk."
+description: "Every site we build is designed to WCAG 2.2 AA standards and ships with the EqualBrowse widget so patients with disabilities can use it. Lower ADA risk."
+summary: "Sites designed to WCAG 2.2 AA standards, with the EqualBrowse widget to help patients with disabilities use them."
 primaryKeyword: "ADA compliant dental website"
 targetQuestions: ["Does my practice website need to be ADA compliant?", "What is WCAG?", "What does an accessibility widget do?"]
 order: 80
 icon: "access"
 datePublished: 2026-10-28
-dateModified: 2026-10-28
+dateModified: 2026-10-29
 outcomes:
-  - "Patients with vision, motor and cognitive disabilities can use your site"
+  - "A site designed to accessibility standards, not patched after the fact"
+  - "Patients with vision, motor and cognitive disabilities can adjust the site to their needs"
   - "Lower exposure to ADA demand letters"
-  - "An accessibility statement you can point to"
 includes:
-  - "EqualBrowse widget installed and configured (included on every site we build)"
-  - "WCAG 2.2 AA audit of your current site"
-  - "Fixes for contrast, keyboard navigation, labels, alt text and structure"
+  - "Design and build to WCAG 2.2 AA: contrast, keyboard navigation, labels, alt text and structure"
+  - "EqualBrowse widget installed and configured, included in the Essentials plan"
   - "Accessibility statement page"
   - "Re-check after every major site change"
+  - "For a site we did not build: an accessibility audit and fixes, quoted separately"
 faqs:
-  - q: "Is a widget enough on its own?"
-    a: "No. A widget helps visitors adjust the site to their needs, but it cannot fix a missing form label or an unreadable color. We install EqualBrowse and fix the underlying issues."
+  - q: "Is the widget enough on its own?"
+    a: "No. The widget helps a patient use the site: larger text, higher contrast, keyboard-friendly navigation and so on. It does not by itself make a site meet accessibility standards. That comes from how the site is designed and built, which is why we do both."
 ---
 
-## Why we include this on every site
+## Why we build it in
 
-Healthcare websites get a disproportionate share of ADA demand letters, and more importantly, patients with disabilities are your patients too. Every site we build ships with the EqualBrowse widget and is built to WCAG 2.2 AA. For a site we did not build, we audit it, fix what fails, and install the widget.
+Healthcare websites get a disproportionate share of ADA demand letters, and more importantly, patients with disabilities are your patients too. Every site we build is designed to WCAG 2.2 AA standards, and every one ships with the EqualBrowse widget so patients can adjust the site to their needs. The standards are what make the site accessible; the widget is what makes it easier to use.
