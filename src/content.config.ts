@@ -62,6 +62,7 @@ const caseStudies = defineCollection({
     location: z.string().optional(), // "Leawood & Prairie Village, KS"
     launched: z.string().optional(), // "February 27, 2026" — when we launched the site, if we built it
     screenshot: z.string().optional(), // /images/work/<slug>-home.jpg
+    logo: z.string().optional(), // /images/work/<slug>-logo.png (transparent PNG; shown on a white tile)
     takeaways: z
       .array(
         z.object({

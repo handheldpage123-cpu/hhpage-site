@@ -14,6 +14,7 @@ website: "https://mymindfuldentist.com"
 location: "McKinney, TX"
 launched: "May 11, 2026"
 screenshot: "/images/work/mindful-home.jpg"
+logo: "/images/work/mindful-logo.png"
 datePublished: 2026-11-03
 dateModified: 2026-11-03
 order: 30

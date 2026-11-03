@@ -29,6 +29,7 @@ const description = 'Case studies from dental, orthodontic, medical and tattoo r
               <a class="card card--link study" href={`/work/${c.id}/`}>
                 {c.data.screenshot && <img class="study__shot" src={c.data.screenshot} alt="" width="1568" height="680" loading="lazy" decoding="async" />}
                 <p class="eyebrow">{industryName(c.data.industry)}{c.data.location ? ` · ${c.data.location}` : ''}</p>
+                {c.data.logo && <span class="study__logo"><img src={c.data.logo} alt="" loading="lazy" decoding="async" /></span>}
                 <h2 class="h3">{c.data.client}</h2>
                 {featured && <p class="study__stat">{featured.headline}</p>}
                 <p class="meta">{c.data.summary}</p>
@@ -45,5 +46,7 @@ const description = 'Case studies from dental, orthodontic, medical and tattoo r
 <style>
   .h3 { font-size: var(--text-xl); }
   .study__shot { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+  .study__logo { display: inline-grid; place-items: center; background: #FFFFFF; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); justify-self: start; }
+  .study__logo img { max-width: 160px; max-height: 56px; width: auto; height: auto; display: block; }
   .study__stat { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 700; color: var(--blue); }
 </style>

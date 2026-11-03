@@ -32,6 +32,7 @@ const websiteHost = entry.data.website ? new URL(entry.data.website).host : unde
         </a>
       )}
       <dl class="facts card">
+        {entry.data.logo && <div class="facts__logo"><img src={entry.data.logo} alt={`${entry.data.client} logo`} loading="eager" decoding="async" /></div>}
         <div><dt>Client</dt><dd>{entry.data.client}</dd></div>
         {entry.data.location && <div><dt>Location</dt><dd>{entry.data.location}</dd></div>}
         <div><dt>Industry</dt><dd>{industryName}</dd></div>
@@ -115,6 +116,8 @@ const websiteHost = entry.data.website ? new URL(entry.data.website).host : unde
   .facts div:last-child { border-bottom: 0; padding-bottom: 0; }
   .facts dt { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
   .facts dd { margin: 0; font-weight: 600; }
+  .facts__logo { display: grid !important; place-items: center; background: #FFFFFF; border-radius: var(--radius); padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--line); }
+  .facts__logo img { max-width: 240px; max-height: 96px; width: auto; height: auto; }
   .results { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin-top: var(--space-4); }
   .results th, .results td { text-align: left; padding: var(--space-3); border-bottom: 1px solid var(--line); }
   .results th { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }

@@ -13,6 +13,7 @@ services: ["web-design-development", "seo", "listing-management", "review-manage
 website: "https://hoffmanortho.com"
 location: "Leawood & Prairie Village, KS"
 screenshot: "/images/work/hoffman-home.jpg"
+logo: "/images/work/hoffman-logo.png"
 datePublished: 2026-11-03
 dateModified: 2026-11-03
 order: 10

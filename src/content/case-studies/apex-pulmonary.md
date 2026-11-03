@@ -14,6 +14,7 @@ website: "https://apexpulmonary.org"
 location: "Flower Mound, TX"
 launched: "February 27, 2026"
 screenshot: "/images/work/apex-home.jpg"
+logo: "/images/work/apex-logo.png"
 datePublished: 2026-11-03
 dateModified: 2026-11-03
 order: 20
