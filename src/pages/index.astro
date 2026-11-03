@@ -4,57 +4,86 @@ import ProofBar from '@/components/ProofBar.astro';
 import FeaturedResults from '@/components/FeaturedResults.astro';
 import Cta from '@/components/Cta.astro';
 import Faqs from '@/components/Faqs.astro';
+import Icon from '@/components/Icon.astro';
+import Placeholder from '@/components/Placeholder.astro';
 import { site } from '@/data/site';
 import { getCollection } from 'astro:content';
 import { faqPage } from '@/lib/schema';
 
 const services = (await getCollection('services', ({ data }) => !data.draft && data.featured)).sort((a, b) => a.data.order - b.data.order);
 const industries = (await getCollection('industries', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
 const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order).map((f) => ({ q: f.data.question, a: f.data.answer }));
+
+const industryIcon: Record<string, string> = { dental: 'tooth', orthodontic: 'braces', medical: 'medical', 'tattoo-removal': 'laser' };
+const deal = [
+  'Clear pricing, agreed before work starts.',
+  'Month-to-month on monthly services.',
+  'You talk to the people doing the work.',
+  'You own your website and your data.',
+  'Real support, Monday to Friday.',
+];
 
 const title = site.name;
 const description = site.description;
 ---
 <Base title={title} description={description} schema={[faqPage(faqs)]} markdownPath="/index.md">
+  <!-- ===== Hero ===== -->
   <section class="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
     <div class="container hero__inner">
-      <div class="hero__copy stack">
-        <p class="eyebrow">Web design and digital marketing for practices</p>
-        <h1>Practice marketing, kept simple and priced fairly.</h1>
+      <div class="hero__copy stack reveal">
+        <p class="eyebrow eyebrow--dot">Web design and digital marketing for practices</p>
+        <h1 class="hero__title">Practice marketing, <span class="hl">kept simple</span> and priced fairly.</h1>
         <p class="lede">We build websites and run SEO, Google Ads, listings and reviews for dental, orthodontic, medical and tattoo removal practices. We keep it simple because simple is what works, and we will never push you to spend more than you need to.</p>
-        <div class="cluster">
-          <a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a>
-          <a class="btn btn--secondary" href="/how-we-work/">How we work</a>
+        <div class="cluster hero__actions">
+          <a class="btn btn--primary btn--lg" href={site.primaryCta.href}>{site.primaryCta.label} <Icon name="arrow" size={18} /></a>
+          <a class="btn btn--secondary btn--lg" href="/how-we-work/">How we work</a>
         </div>
       </div>
-      <aside class="hero__aside" aria-label="What you get">
-        <p class="eyebrow">The deal</p>
-        <ul>
-          <li>Clear pricing, agreed before work starts.</li>
-          <li>Month-to-month on monthly services.</li>
-          <li>You talk to the people doing the work.</li>
-          <li>You own your website and your data.</li>
-          <li>Real support, Monday to Friday.</li>
-        </ul>
-      </aside>
+
+      <div class="hero__visual reveal" style="--delay: 120ms">
+        <div class="browser">
+          <div class="browser__bar" aria-hidden="true"><span></span><span></span><span></span><i>yourpractice.com</i></div>
+          <Placeholder label="Client website, desktop" ratio="16 / 11" />
+        </div>
+        <div class="float float--a">
+          <span class="float__k"><Icon name="chart" size={18} /></span>
+          <span><b>80 → 731</b><small>monthly organic visits, one year</small></span>
+        </div>
+        <div class="float float--b">
+          <span class="float__k float__k--accent"><Icon name="phone" size={18} /></span>
+          <span><b>+65%</b><small>calls from Google, year over year</small></span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <ProofBar />
+  <!-- ===== Proof + the deal ===== -->
+  <section class="section--tight section--band trust">
+    <div class="container trust__inner">
+      <div class="reveal"><ProofBar bare /></div>
+      <ul class="deal reveal" style="--delay: 100ms" aria-label="The deal">
+        {deal.map((d) => <li><Icon name="check" size={16} /> {d}</li>)}
+      </ul>
+    </div>
+  </section>
 
+  <!-- ===== Services ===== -->
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Services</p>
-        <h2>A few things move a practice's numbers. We do those well.</h2>
+      <div class="section-head reveal">
+        <p class="eyebrow eyebrow--dot">Services</p>
+        <h2>A few things move a practice's numbers. <span class="hl">We do those well.</span></h2>
         <p class="lede">Most practices start with our Essentials plan (website hosting and management, listings, reviews on your site, accessibility) and add Google Ads or advanced review management when the numbers justify it.</p>
       </div>
-      <div class="grid grid--3">
-        {services.map((s) => (
-          <a class="card card--link" href={`/services/${s.id}/`}>
+      <div class="svc reveal-group">
+        {services.map((s, i) => (
+          <a class={`svc__tile reveal ${i < 2 ? 'svc__tile--lead' : ''}`} href={`/services/${s.id}/`} style={`--delay:${i * 60}ms`}>
+            <span class="svc__icon"><Icon name={s.data.icon} size={26} /></span>
             <h3>{s.data.shortName}</h3>
             <p class="meta">{s.data.summary}</p>
-            <span class="more">Learn more →</span>
+            <span class="more">Learn more <Icon name="arrow" size={16} /></span>
           </a>
         ))}
       </div>
@@ -63,43 +92,64 @@ const description = site.description;
 
   <FeaturedResults />
 
+  <!-- ===== Industries ===== -->
   <section class="section section--band">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Industries</p>
+      <div class="section-head reveal">
+        <p class="eyebrow eyebrow--dot">Industries</p>
         <h2>Built for the way patients find a practice</h2>
         <p class="lede">We have run the same playbooks for fifteen years in healthcare. Pick your specialty for what works there.</p>
       </div>
-      <div class="grid grid--4">
-        {industries.map((i) => (
-          <a class="card card--link" href={`/industries/${i.id}/`}>
-            <h3>{i.data.shortName}</h3>
-            <p class="meta">{i.data.summary}</p>
-            <span class="more">See the playbook →</span>
+      <div class="ind reveal-group">
+        {industries.map((i, n) => (
+          <a class="ind__tile reveal" href={`/industries/${i.id}/`} style={`--delay:${n * 60}ms`}>
+            <Placeholder label={`${i.data.shortName} practice`} ratio="4 / 3" tone={n % 2 ? 'accent' : 'blue'} class="ind__img" />
+            <div class="ind__body">
+              <span class="ind__icon"><Icon name={industryIcon[i.id] ?? 'spark'} size={20} /></span>
+              <h3>{i.data.shortName}</h3>
+              <p class="meta">{i.data.summary}</p>
+              <span class="more">See the playbook <Icon name="arrow" size={16} /></span>
+            </div>
           </a>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- ===== Why + first call ===== -->
   <section class="section">
     <div class="container">
-      <div class="grid grid--2 why">
-        <div class="stack">
-          <p class="eyebrow">Why practices switch to us</p>
+      <div class="why">
+        <div class="stack reveal">
+          <p class="eyebrow eyebrow--dot">Why practices switch to us</p>
           <h2>Marketing is simpler than most agencies make it look.</h2>
           <p>A fast site with a page per treatment, an active Google profile, consistent listings, a steady flow of reviews, and ads only where the margins justify them. We do those well and skip the rest. We are transparent about what is working and what is not, and we let you make the spending decisions with that in front of you.</p>
-          <p><a href="/how-we-work/">Read how we work →</a></p>
+          <p><a class="link-arrow" href="/how-we-work/">Read how we work <Icon name="arrow" size={16} /></a></p>
+
+          <div class="team" aria-label="The people you will work with">
+            <div class="team__faces">
+              {team.map((t) => (
+                <Placeholder label={t.data.name.split(' ')[0]} ratio="1 / 1" tone="neutral" class="team__face" />
+              ))}
+            </div>
+            <div class="team__text">
+              <strong>You talk to the people doing the work.</strong>
+              <span class="meta">{team.map((t) => t.data.name).join(', ')}. No account managers in between.</span>
+              <a href="/about/">Meet the team <Icon name="arrow" size={14} /></a>
+            </div>
+          </div>
         </div>
-        <div class="card stack">
-          <h3>What a first call covers</h3>
-          <ol>
-            <li>Where your new patients come from now, as far as the data shows.</li>
-            <li>What your site, listings and reviews look like next to the practice down the street.</li>
-            <li>The two or three changes most likely to move the number.</li>
-            <li>What each would cost, in writing.</li>
+
+        <div class="call reveal" style="--delay: 120ms">
+          <p class="eyebrow eyebrow--dot">What a first call covers</p>
+          <ol class="call__steps">
+            <li><span class="call__n">01</span><span>Where your new patients come from now, as far as the data shows.</span></li>
+            <li><span class="call__n">02</span><span>What your site, listings and reviews look like next to the practice down the street.</span></li>
+            <li><span class="call__n">03</span><span>The two or three changes most likely to move the number.</span></li>
+            <li><span class="call__n">04</span><span>What each would cost, in writing.</span></li>
           </ol>
-          <a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a>
+          <a class="btn btn--primary btn--lg" href={site.primaryCta.href}>{site.primaryCta.label} <Icon name="arrow" size={18} /></a>
+          <p class="meta call__note"><Icon name="clock" size={14} /> A short call. No pressure, no commitment.</p>
         </div>
       </div>
     </div>
@@ -110,11 +160,96 @@ const description = site.description;
 </Base>
 
 <style>
-  .hero { padding-block: var(--space-16) var(--space-12); }
-  .hero__inner { display: grid; gap: var(--space-8); align-items: start; }
-  @media (min-width: 900px) { .hero__inner { grid-template-columns: 3fr 2fr; } }
-  .hero h1 { max-width: 18ch; }
-  .hero__aside { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius-lg); padding: var(--space-6); display: grid; gap: var(--space-3); }
-  .hero__aside ul { padding-left: 1.1em; display: grid; gap: var(--space-2); font-weight: 600; }
-  .why ol { padding-left: 1.25em; display: grid; gap: var(--space-2); }
+  /* ---- Hero ---- */
+  .hero { position: relative; overflow: clip; padding-block: clamp(3rem, 8vw, 6.5rem) clamp(3rem, 7vw, 5rem); }
+  .hero__bg { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(60% 55% at 85% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+      radial-gradient(50% 50% at 10% 90%, color-mix(in srgb, var(--blue) 18%, transparent), transparent 70%);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent); }
+  .hero__bg::after { content: ""; position: absolute; inset: 0; opacity: 0.5;
+    background-image: radial-gradient(color-mix(in srgb, var(--ink) 12%, transparent) 1px, transparent 1px); background-size: 26px 26px;
+    mask-image: radial-gradient(70% 70% at 50% 30%, #000, transparent); }
+  .hero__inner { display: grid; gap: var(--space-12); align-items: center; }
+  @media (min-width: 960px) { .hero__inner { grid-template-columns: 1.15fr 1fr; gap: var(--space-16); } }
+  .hero__title { font-size: clamp(2.4rem, 1.4rem + 3.6vw, 3.75rem); letter-spacing: -0.025em; max-width: 16ch; }
+  .hero__actions { margin-top: var(--space-2); }
+
+  .hero__visual { position: relative; }
+  .browser { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; transform: rotate(-1deg); }
+  .browser__bar { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--paper) 60%, var(--surface)); }
+  .browser__bar span { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+  .browser__bar i { margin-left: var(--space-3); font: 500 var(--text-xs) var(--font-mono); color: var(--muted); font-style: normal; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--paper); flex: 1; }
+  .browser :global(.ph) { border-radius: 0; }
+  .float { position: absolute; display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); animation: bob 7s ease-in-out infinite; }
+  .float b { display: block; font-family: var(--font-display); font-size: var(--text-xl); letter-spacing: -0.02em; line-height: 1; }
+  .float small { display: block; color: var(--muted); font-size: var(--text-xs); margin-top: 2px; }
+  .float__k { display: grid; place-items: center; width: 38px; height: 38px; border-radius: var(--radius); background: var(--blue-soft); color: var(--blue); }
+  .float__k--accent { background: var(--accent-soft); color: var(--accent); }
+  .float--a { left: -6%; bottom: 14%; }
+  .float--b { right: -4%; top: 8%; animation-delay: -3.5s; }
+  @media (max-width: 959px) { .hero__visual { padding-block: 28px; } .float--a { left: 0; bottom: 0; } .float--b { right: 0; top: 0; } .float b { font-size: var(--text-lg); } }
+  @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+
+  /* ---- Trust band ---- */
+  .trust__inner { display: grid; gap: var(--space-8); align-items: center; }
+  @media (min-width: 960px) { .trust__inner { grid-template-columns: auto 1fr; gap: var(--space-16); } }
+  .deal { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: var(--space-3) var(--space-6); font-weight: 600; font-size: var(--text-sm); }
+  .deal li { display: flex; gap: 0.5em; align-items: flex-start; }
+  .deal :global(.icon) { flex: none; margin-top: 3px; color: var(--accent); }
+
+  /* ---- Services (bento) ---- */
+  .svc { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
+  @media (min-width: 900px) { .svc { grid-template-columns: repeat(4, 1fr); } .svc__tile--lead { grid-column: span 2; } }
+  .svc__tile { position: relative; display: grid; align-content: start; gap: var(--space-3); padding: var(--space-6); border-radius: var(--radius-lg); color: inherit; text-decoration: none;
+    background: var(--surface); border: 1px solid var(--line); overflow: hidden; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .svc__tile::before { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s;
+    background: radial-gradient(80% 60% at 100% 0%, color-mix(in srgb, var(--blue) 14%, transparent), transparent 70%); }
+  .svc__tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--blue) 50%, var(--line)); }
+  .svc__tile:hover::before { opacity: 1; }
+  .svc__tile > * { position: relative; }
+  .svc__tile--lead { padding: var(--space-8); }
+  .svc__tile--lead h3 { font-size: var(--text-2xl); }
+  .svc__icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: var(--radius); background: var(--blue-soft); color: var(--blue); margin-bottom: var(--space-2); }
+  .svc__tile:nth-child(3n) .svc__icon { background: var(--accent-soft); color: var(--accent); }
+  .svc__tile .meta { color: var(--muted); font-size: var(--text-sm); }
+  .svc__tile .more { margin-top: var(--space-2); }
+
+  /* ---- Industries ---- */
+  .ind { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+  .ind__tile { display: grid; grid-template-rows: auto 1fr; border-radius: var(--radius-lg); overflow: hidden; background: var(--paper); border: 1px solid var(--line); color: inherit; text-decoration: none; transition: transform .25s ease, box-shadow .25s ease; }
+  .ind__tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .ind__tile :global(.ind__img) { border-radius: 0; transition: transform .5s ease; place-items: start end; }
+  .ind__tile:hover :global(.ind__img) { transform: scale(1.04); }
+  .ind__body { position: relative; display: grid; gap: var(--space-2); padding: var(--space-6) var(--space-5) var(--space-5); align-content: start; }
+  .ind__icon { position: absolute; top: calc(-1 * var(--space-5)); left: var(--space-5); display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--radius); background: var(--accent); color: var(--accent-ink); box-shadow: var(--shadow-sm); }
+  .ind__body h3 { margin-top: var(--space-2); }
+  .ind__body .meta { color: var(--muted); font-size: var(--text-sm); }
+
+  /* ---- Why / first call ---- */
+  .why { display: grid; gap: var(--space-12); align-items: start; }
+  @media (min-width: 960px) { .why { grid-template-columns: 1.1fr 1fr; gap: var(--space-16); } }
+  .team { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); margin-top: var(--space-4); padding: var(--space-5); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--line); }
+  .team__faces { display: flex; }
+  .team :global(.team__face) { width: 56px; height: 56px; border-radius: 50%; border: 3px solid var(--surface); margin-left: -14px; box-shadow: var(--shadow-sm); }
+  .team :global(.team__face:first-child) { margin-left: 0; }
+  .team :global(.team__face .ph__label) { display: none; }
+  .team__text { display: grid; gap: 2px; flex: 1; min-width: 200px; }
+  .team__text a { display: inline-flex; align-items: center; gap: 0.3em; font-weight: 600; font-size: var(--text-sm); text-decoration: none; margin-top: var(--space-1); }
+  .team__text a:hover { text-decoration: underline; }
+  .link-arrow { display: inline-flex; align-items: center; gap: 0.35em; font-weight: 600; text-decoration: none; }
+  .link-arrow:hover { text-decoration: underline; }
+  .link-arrow :global(.icon) { transition: transform .2s; }
+  .link-arrow:hover :global(.icon) { transform: translateX(3px); }
+
+  .call { position: relative; display: grid; gap: var(--space-6); padding: var(--space-8); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--line); overflow: hidden; }
+  .call::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--accent), var(--blue)); }
+  .call__steps { list-style: none; padding: 0; display: grid; gap: var(--space-4); }
+  .call__steps li { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: start; padding-bottom: var(--space-4); border-bottom: 1px dashed var(--line); }
+  .call__steps li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .call__n { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--accent); font-weight: 500; padding-top: 2px; }
+  .call .btn { justify-self: start; }
+  .call__note { display: inline-flex; align-items: center; gap: 0.4em; color: var(--muted); font-size: var(--text-sm); margin-top: calc(-1 * var(--space-3)); }
+
+  @media (prefers-reduced-motion: reduce) { .float { animation: none; } .browser { transform: none; } }
 </style>

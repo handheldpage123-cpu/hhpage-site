@@ -2,40 +2,69 @@
 /**
  * Home-page results section: the single most impactful takeaway from each
  * published case study (the one marked `featured: true` in its frontmatter).
+ * The first study gets a full-width feature; the rest sit in a row beneath.
  */
 import Viz from '@/components/Viz.astro';
+import Icon from '@/components/Icon.astro';
 import { getCollection } from 'astro:content';
 const studies = (await getCollection('caseStudies', ({ data }) => !data.draft && !data.placeholder)).sort((a, b) => a.data.order - b.data.order);
 const items = studies.flatMap((c) => {
   const t = c.data.takeaways.find((x) => x.featured);
   return t ? [{ id: c.id, client: c.data.client, location: c.data.location, launched: c.data.launched, ...t }] : [];
 });
+const [lead, ...rest] = items;
 ---
 {items.length > 0 && (
-  <section class="section">
+  <section class="section results-sec">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow">Results</p>
-        <h2>What happened to the numbers.</h2>
+      <div class="section-head reveal">
+        <p class="eyebrow eyebrow--dot">Results</p>
+        <h2>What happened to <span class="hl">the numbers.</span></h2>
         <p class="lede">Three practices, three different starting points. One was invisible in search, one was brand new, one had a website that didn't rank. Here is what changed.</p>
       </div>
-      <div class="grid grid--3 results">
-        {items.map((r) => (
-          <a class="card card--link result" href={`/work/${r.id}/`}>
-            <Viz src={r.viz} />
-            <p class="eyebrow">{r.client}{r.location ? ` · ${r.location}` : ''}</p>
-            <h3>{r.headline}</h3>
-            <p class="meta">{r.blurb}</p>
-            <span class="more">Read the case study →</span>
-          </a>
-        ))}
-      </div>
-      <p class="results__more"><a href="/work/">See all our work →</a></p>
+
+      <a class="feature reveal" href={`/work/${lead.id}/`}>
+        <div class="feature__viz"><Viz src={lead.viz} /></div>
+        <div class="feature__body">
+          <p class="eyebrow">{lead.client}{lead.location ? ` · ${lead.location}` : ''}</p>
+          <h3>{lead.headline}</h3>
+          <p class="meta">{lead.blurb}</p>
+          <span class="more">Read the case study <Icon name="arrow" size={16} /></span>
+        </div>
+      </a>
+
+      {rest.length > 0 && (
+        <div class="results reveal-group">
+          {rest.map((r, i) => (
+            <a class="card card--link result reveal" href={`/work/${r.id}/`} style={`--delay:${i * 80}ms`}>
+              <Viz src={r.viz} />
+              <p class="eyebrow">{r.client}{r.location ? ` · ${r.location}` : ''}</p>
+              <h3>{r.headline}</h3>
+              <p class="meta">{r.blurb}</p>
+              <span class="more">Read the case study <Icon name="arrow" size={16} /></span>
+            </a>
+          ))}
+        </div>
+      )}
+      <p class="results__more reveal"><a class="btn btn--secondary" href="/work/">See all our work <Icon name="arrow" size={16} /></a></p>
     </div>
   </section>
 )}
 <style>
+  .results-sec { position: relative; }
+  .feature { display: grid; color: inherit; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  @media (min-width: 900px) { .feature { grid-template-columns: 1.25fr 1fr; } }
+  .feature:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--blue) 50%, var(--line)); }
+  .feature__viz :global(.viz) { border: 0; border-radius: 0; height: 100%; }
+  .feature__body { display: grid; align-content: center; gap: var(--space-3); padding: var(--space-8); }
+  .feature__body h3 { font-size: var(--text-2xl); }
+  .feature__body .meta { color: var(--muted); }
+  .results { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); margin-top: var(--space-4); }
+  .result { padding: 0; gap: var(--space-2); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .result:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .result :global(.viz) { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; margin-bottom: var(--space-3); }
+  .result > :not(:global(.viz)) { margin-inline: var(--space-6); }
+  .result > :last-child { margin-bottom: var(--space-6); }
   .result h3 { font-size: var(--text-lg); }
-  .result :global(.viz) { margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) 0; border: 0; border-bottom: 1px solid var(--line); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
-  .results__more { margin-top: var(--space-6); font-weight: 600; }
+  .results__more { margin-top: var(--space-8); }
 </style>

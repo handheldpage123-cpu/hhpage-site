@@ -1,0 +1,25 @@
+---
+/**
+ * Image placeholder. Pure CSS, no asset: a soft gradient with a hatched
+ * texture and a mono label naming the shot that will go here. Swap for a
+ * real <img>/<Image> when the imagery is sourced; keep the `ratio`.
+ */
+interface Props { label: string; ratio?: string; class?: string; tone?: 'blue' | 'accent' | 'neutral' }
+const { label, ratio = '4 / 3', class: cls = '', tone = 'blue' } = Astro.props;
+---
+<div class={`ph ph--${tone} ${cls}`.trim()} style={`aspect-ratio:${ratio}`} role="img" aria-label={`Placeholder image: ${label}`}>
+  <span class="ph__label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="m21 16-5-5-9 9"/></svg>{label}</span>
+</div>
+<style>
+  .ph { position: relative; width: 100%; border-radius: inherit; overflow: hidden; display: grid; place-items: end start;
+    --ph-a: var(--blue-soft); --ph-b: var(--surface); --ph-ink: var(--blue);
+    background:
+      repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in srgb, var(--ph-ink) 7%, transparent) 14px 15px),
+      radial-gradient(120% 90% at 100% 0%, var(--ph-a), transparent 60%),
+      linear-gradient(160deg, var(--ph-b), var(--ph-a)); }
+  .ph--accent { --ph-a: var(--accent-soft); --ph-ink: var(--accent); }
+  .ph--neutral { --ph-a: var(--line); --ph-ink: var(--muted); }
+  .ph__label { display: inline-flex; align-items: center; gap: 0.4em; margin: var(--space-3); padding: 0.3rem 0.6rem; border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--surface) 85%, transparent); color: var(--ph-ink); border: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.04em; text-transform: uppercase; backdrop-filter: blur(4px); }
+</style>
