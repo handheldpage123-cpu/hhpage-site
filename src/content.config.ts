@@ -58,6 +58,23 @@ const caseStudies = defineCollection({
     results: z.array(z.object({ metric: z.string(), before: z.string(), after: z.string(), period: z.string().optional() })).min(1),
     quote: z.object({ text: z.string(), name: z.string(), role: z.string() }).optional(),
     placeholder: z.boolean().default(false),
+    /** Fields below drive the full case-study layout and the home-page results section. */
+    location: z.string().optional(), // "Leawood & Prairie Village, KS"
+    launched: z.string().optional(), // "February 27, 2026" — when we launched the site, if we built it
+    screenshot: z.string().optional(), // /images/work/<slug>-home.jpg
+    takeaways: z
+      .array(
+        z.object({
+          key: z.string(), // stable id, e.g. "organic-traffic"
+          eyebrow: z.string(), // "Organic traffic"
+          headline: z.string(), // "80 → 731 monthly organic visits"
+          blurb: z.string(),
+          viz: z.string(), // "<client>/<file>.svg" under src/assets/viz
+          featured: z.boolean().default(false), // the one shown on the home page
+        }),
+      )
+      .default([]),
+    sources: z.array(z.string()).default([]), // "Semrush, Nov 2026", "Google Analytics, Oct 2026"
   }),
 });
 

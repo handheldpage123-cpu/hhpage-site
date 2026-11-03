@@ -1,0 +1,41 @@
+---
+/**
+ * Home-page results section: the single most impactful takeaway from each
+ * published case study (the one marked `featured: true` in its frontmatter).
+ */
+import Viz from '@/components/Viz.astro';
+import { getCollection } from 'astro:content';
+const studies = (await getCollection('caseStudies', ({ data }) => !data.draft && !data.placeholder)).sort((a, b) => a.data.order - b.data.order);
+const items = studies.flatMap((c) => {
+  const t = c.data.takeaways.find((x) => x.featured);
+  return t ? [{ id: c.id, client: c.data.client, location: c.data.location, launched: c.data.launched, ...t }] : [];
+});
+---
+{items.length > 0 && (
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Results</p>
+        <h2>What happened to the numbers.</h2>
+        <p class="lede">Three practices, three different starting points. One was invisible in search, one was brand new, one had a website that didn't rank. Here is what changed.</p>
+      </div>
+      <div class="grid grid--3 results">
+        {items.map((r) => (
+          <a class="card card--link result" href={`/work/${r.id}/`}>
+            <Viz src={r.viz} />
+            <p class="eyebrow">{r.client}{r.location ? ` · ${r.location}` : ''}</p>
+            <h3>{r.headline}</h3>
+            <p class="meta">{r.blurb}</p>
+            <span class="more">Read the case study →</span>
+          </a>
+        ))}
+      </div>
+      <p class="results__more"><a href="/work/">See all our work →</a></p>
+    </div>
+  </section>
+)}
+<style>
+  .result h3 { font-size: var(--text-lg); }
+  .result :global(.viz) { margin: calc(-1 * var(--space-6)) calc(-1 * var(--space-6)) 0; border: 0; border-bottom: 1px solid var(--line); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .results__more { margin-top: var(--space-6); font-weight: 600; }
+</style>

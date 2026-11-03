@@ -1,0 +1,12 @@
+---
+/**
+ * Inlines a data-viz SVG from src/assets/viz so it inherits the site's fonts,
+ * tokens and dark mode. Pass `src` as "<client>/<file>.svg".
+ */
+interface Props { src: string; class?: string }
+const { src, class: cls = '' } = Astro.props;
+const all = import.meta.glob('/src/assets/viz/**/*.svg', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const svg = all[`/src/assets/viz/${src}`];
+if (!svg) throw new Error(`Viz not found: ${src}`);
+---
+<div class={`viz ${cls}`.trim()} set:html={svg} />

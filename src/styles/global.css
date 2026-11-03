@@ -119,3 +119,21 @@ details.faq .faq__body { padding-bottom: var(--space-4); max-width: var(--measur
 .breadcrumbs a { color: var(--muted); }
 
 .updated { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--muted); }
+
+/* ---- Inline data-viz (case studies, home results). SVGs live in src/assets/viz; colors map to tokens. ---- */
+.hh-viz { display: block; width: 100%; height: auto;
+  --v-ink: var(--ink); --v-muted: var(--muted); --v-line: var(--line); --v-blue: var(--blue); --v-blue-soft: var(--blue-soft);
+  --v-accent: var(--accent); --v-accent-ink: var(--accent-ink); --v-surface: var(--surface);
+  --v-t1: var(--viz-t1); --v-t2: var(--viz-t2); --v-t3: var(--viz-t3); --v-t4: var(--viz-t4);
+  --v-t-ink-dark: var(--viz-t-ink-dark); --v-t-ink-light: var(--viz-t-ink-light); }
+.hh-viz text { font-family: var(--font-body); fill: var(--v-ink); }
+.hh-viz .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; fill: var(--v-muted); color: inherit; }
+.hh-viz .hero { font-family: var(--font-display); font-size: 44px; font-weight: 700; letter-spacing: -.01em; }
+.hh-viz .hero-sub { font-size: 15px; fill: var(--v-muted); }
+.hh-viz .axis { font-family: var(--font-mono); font-size: 11px; fill: var(--v-muted); }
+.hh-viz .lbl { font-size: 13px; font-weight: 600; }
+.hh-viz .lbl-m { font-size: 12px; fill: var(--v-muted); }
+.hh-viz .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.hh-viz .gridline { stroke: var(--v-line); stroke-width: 1; }
+.hh-viz .src { font-family: var(--font-mono); font-size: 10px; fill: var(--v-muted); }
+.viz { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }

@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import Cta from '@/components/Cta.astro';
+import Viz from '@/components/Viz.astro';
 import { getCollection, render } from 'astro:content';
 import { breadcrumbs } from '@/lib/schema';
 import { site } from '@/data/site';
@@ -12,27 +13,120 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const url = `${site.url}/work/${entry.id}/`;
+const industries = await getCollection('industries');
+const services = await getCollection('services');
+const industryName = industries.find((i) => i.id === entry.data.industry)?.data.shortName ?? entry.data.industry;
+const serviceNames = entry.data.services.map((s) => services.find((x) => x.id === s)?.data.shortName ?? s);
+const others = (await getCollection('caseStudies', ({ data, id }) => !data.draft && !data.placeholder && id !== entry.id)).sort((a, b) => a.data.order - b.data.order);
+const websiteHost = entry.data.website ? new URL(entry.data.website).host : undefined;
 ---
 <Base title={entry.data.title} description={entry.data.description} schema={[breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Work', url: site.url + '/work/' }, { name: entry.data.client, url }])]} datePublished={entry.data.datePublished} dateModified={entry.data.dateModified} markdownPath={`/work/${entry.id}.md`}>
-  <PageHero crumbs={[{ name: 'Work', href: '/work/' }, { name: entry.data.client, href: `/work/${entry.id}/` }]} eyebrow={entry.data.industry} title={entry.data.title} lede={entry.data.description} />
+  <PageHero crumbs={[{ name: 'Work', href: '/work/' }, { name: entry.data.client, href: `/work/${entry.id}/` }]} eyebrow={industryName} title={entry.data.title} lede={entry.data.description} />
+
+  {/* At a glance: screenshot + facts */}
+  <section class="section--tight">
+    <div class="container glance">
+      {entry.data.screenshot && (
+        <a class="shot" href={entry.data.website} target="_blank" rel="noopener">
+          <img src={entry.data.screenshot} alt={`Home page of ${entry.data.client}'s website`} width="1568" height="680" loading="eager" decoding="async" />
+        </a>
+      )}
+      <dl class="facts card">
+        <div><dt>Client</dt><dd>{entry.data.client}</dd></div>
+        {entry.data.location && <div><dt>Location</dt><dd>{entry.data.location}</dd></div>}
+        <div><dt>Industry</dt><dd>{industryName}</dd></div>
+        <div><dt>What we do for them</dt><dd>{serviceNames.join(', ')}</dd></div>
+        {entry.data.launched && <div><dt>Site launched</dt><dd>{entry.data.launched}</dd></div>}
+        {websiteHost && <div><dt>Website</dt><dd><a href={entry.data.website} target="_blank" rel="noopener">{websiteHost}</a></dd></div>}
+      </dl>
+    </div>
+  </section>
+
+  {/* Before / after */}
   <section class="section--tight section--band">
     <div class="container table-wrap">
+      <p class="eyebrow">The numbers</p>
       <table class="results">
         <thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Period</th></tr></thead>
         <tbody>{entry.data.results.map((r) => <tr><td>{r.metric}</td><td>{r.before}</td><td>{r.after}</td><td>{r.period ?? ''}</td></tr>)}</tbody>
       </table>
     </div>
   </section>
-  <section class="section"><div class="container prose"><Content /></div></section>
+
+  {/* Three takeaways, each with its graphic */}
+  {entry.data.takeaways.length > 0 && (
+    <section class="section">
+      <div class="container stack-lg">
+        <div class="section-head">
+          <p class="eyebrow">Three things that happened</p>
+          <h2>What the work did for {entry.data.client}</h2>
+        </div>
+        {entry.data.takeaways.map((t, i) => (
+          <article class={`takeaway ${i % 2 ? 'takeaway--flip' : ''}`}>
+            <Viz src={t.viz} />
+            <div class="takeaway__copy stack">
+              <p class="eyebrow">{t.eyebrow}</p>
+              <h3>{t.headline}</h3>
+              <p>{t.blurb}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {/* The story */}
+  <section class="section section--band"><div class="container prose"><Content /></div></section>
+
   {entry.data.quote && (
     <section class="section--tight"><div class="container"><blockquote class="quote"><p>“{entry.data.quote.text}”</p><footer>{entry.data.quote.name}, {entry.data.quote.role}</footer></blockquote></div></section>
+  )}
+
+  {entry.data.sources.length > 0 && (
+    <section class="section--tight"><div class="container"><p class="updated">Sources: {entry.data.sources.join(' · ')}. Organic traffic and keyword figures are Semrush estimates; sessions, engagement and form submissions are from the practice's Google Analytics.</p></div></section>
+  )}
+
+  {others.length > 0 && (
+    <section class="section--tight section--band">
+      <div class="container">
+        <p class="eyebrow">More work</p>
+        <div class="grid grid--3">
+          {others.map((c) => (
+            <a class="card card--link" href={`/work/${c.id}/`}>
+              <p class="eyebrow">{c.data.industry}</p>
+              <h3 class="h4">{c.data.client}</h3>
+              <p class="meta">{c.data.takeaways.find((t) => t.featured)?.headline ?? c.data.summary}</p>
+              <span class="more">Read the case study →</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
   )}
   <Cta />
 </Base>
 <style>
-  .results { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .glance { display: grid; gap: var(--space-6); align-items: start; }
+  @media (min-width: 900px) { .glance { grid-template-columns: 3fr 2fr; } }
+  .shot { display: block; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); background: var(--surface); }
+  .shot img { display: block; width: 100%; height: auto; }
+  .facts { margin: 0; display: grid; gap: var(--space-3); }
+  .facts div { display: grid; gap: 2px; padding-bottom: var(--space-3); border-bottom: 1px solid var(--line); }
+  .facts div:last-child { border-bottom: 0; padding-bottom: 0; }
+  .facts dt { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .facts dd { margin: 0; font-weight: 600; }
+  .results { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin-top: var(--space-4); }
   .results th, .results td { text-align: left; padding: var(--space-3); border-bottom: 1px solid var(--line); }
   .results th { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .results td:nth-child(3) { font-weight: 700; }
+  .stack-lg { display: grid; gap: var(--space-12); }
+  .takeaway { display: grid; gap: var(--space-6); align-items: center; }
+  @media (min-width: 900px) {
+    .takeaway { grid-template-columns: 3fr 2fr; }
+    .takeaway--flip :global(.viz) { order: 2; }
+  }
+  .takeaway h3 { font-size: var(--text-xl); }
+  .h4 { font-size: var(--text-lg); }
   .quote { margin: 0; padding-left: var(--space-6); border-left: 4px solid var(--accent); max-width: var(--measure); font-family: var(--font-display); font-size: var(--text-xl); }
   .quote footer { font-family: var(--font-body); font-size: var(--text-sm); color: var(--muted); margin-top: var(--space-3); }
 </style>
