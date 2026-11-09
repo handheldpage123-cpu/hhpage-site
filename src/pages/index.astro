@@ -20,7 +20,7 @@ const description = site.description;
       <div class="hero__copy stack">
         <p class="eyebrow">Web design and digital marketing for practices</p>
         <h1>Practice marketing, kept simple and priced fairly.</h1>
-        <p class="lede">We build websites and run SEO, Google Ads, listings and reviews for dental, orthodontic, medical and tattoo removal practices. We keep it simple because simple is what works, and we will never push you to spend more than you need to.</p>
+        <p class="lede">We build websites and run SEO, Google Ads, listings and reviews for dental, orthodontic and medical practices. We keep it simple because simple is what works, and we will never push you to spend more than you need to.</p>
         <div class="cluster">
           <a class="btn btn--primary" href={site.primaryCta.href}>{site.primaryCta.label}</a>
           <a class="btn btn--secondary" href="/how-we-work/">How we work</a>
@@ -67,7 +67,7 @@ const description = site.description;
         <h2>Built for the way patients find a practice</h2>
         <p class="lede">We have run the same playbooks for fifteen years in healthcare. Pick your specialty for what works there.</p>
       </div>
-      <div class="grid grid--4">
+      <div class="grid grid--3">
         {industries.map((i) => (
           <a class="card card--link" href={`/industries/${i.id}/`}>
             <h3>{i.data.shortName}</h3>

@@ -12,7 +12,7 @@ export const site = {
   url: 'https://hhpage.com',
   tagline: 'Simple, transparent websites and marketing for practices.',
   description:
-    'Hand Held Page (HHPage) is a Texas-based web design and digital marketing agency for dental, orthodontic, medical and tattoo removal practices. Websites, SEO, Google Ads, listings and reviews, kept simple, priced fairly, and never upsold.',
+    'Hand Held Page (HHPage) is a Texas-based web design and digital marketing agency for dental, orthodontic and medical practices. Websites, SEO, Google Ads, listings and reviews, kept simple, priced fairly, and never upsold.',
   phone: '+1 (832) 409-0868',
   phoneHref: '+18324090868',
   email: 'support@hhpage.com',

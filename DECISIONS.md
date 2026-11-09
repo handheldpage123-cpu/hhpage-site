@@ -8,7 +8,7 @@ Record of choices that are not obvious from the code, with their status. Questio
 - **Hosting:** Cloudflare, account shervin@hhpage.com, connected to this GitHub repo. Steven controls DNS and the registrar (Q10).
 - **Theme:** light and dark, following the visitor's setting (Q11). Tokens from the proposal palette. Orange buttons use dark ink text (contrast rule).
 - **Primary conversion:** booked strategy call via `/book/` (Q1). Secondary: contact form, phone.
-- **Audience:** practice owners in dental, orthodontic, medical and tattoo removal (Q2).
+- **Audience:** practice owners in dental, orthodontic and medical (Q2). Tattoo removal dropped 2026-11-09 at Steven's request; all mentions and the /industries/tattoo-removal/ page removed.
 - **Positioning (revised 2026-10-29 from Steven's review):** simple, transparent, priced fairly, never upsold. Do NOT claim to be cheaper than other agencies. Lay out performance and the competitive picture and let the client decide.
 - **Services sold:** websites, SEO, Google Ads (with Local Services Ads folded in; no separate LSA page, old URL 301s to Google Ads), listing management, review management, social media, accessibility/EqualBrowse.
 - **Essentials plan:** website hosting and management + listing management + reviews displayed on the site (page + pop-up widget) + EqualBrowse, one monthly fee. Google Ads and advanced review management (requests, monitoring, responses) priced separately. No prices shown on the site yet.

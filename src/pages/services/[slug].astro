@@ -17,7 +17,7 @@ const industries = (await getCollection('industries', ({ data }) => !data.draft)
 const url = `${site.url}/services/${entry.id}/`;
 const schema = [
   breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'Services', url: site.url + '/services/' }, { name: entry.data.shortName, url }]),
-  serviceSchema({ url, name: entry.data.title, description: entry.data.description, audience: 'Dental, orthodontic, medical and tattoo removal practices' }),
+  serviceSchema({ url, name: entry.data.title, description: entry.data.description, audience: 'Dental, orthodontic and medical practices' }),
   faqPage(entry.data.faqs),
 ];
 ---
