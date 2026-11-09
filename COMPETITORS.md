@@ -19,8 +19,8 @@ Six sites Steven asked to be considered during the build (reviewed 2026-10-29). 
 4. **A person, not a logo.** The Tims, Dr. Fagala, the Kbizz founder. Our About page has the people; the home page does not yet.
 5. **A qualification call as the CTA.** 15-minute intro or discovery call is the norm. Our strategy call fits. An embedded calendar (most of them don't have one) is an edge.
 6. **AI search as a named capability.** "SEO + AI Ranking", "generative engine optimization", "SEO/AEO/GEO". We do the work; the label is less visible than theirs.
-7. **Specialty landing pages as the SEO engine.** Kbizz has 32 healthcare specialties; DoctorLogic has vertical pages. Our 4 industry pages are the start of this.
-8. **Dental-only as a credential.** Three of six say "this is all we do." We are broader (dental, ortho, medical, tattoo removal); the copy should make dental depth obvious rather than apologize for breadth.
+7. **Specialty landing pages as the SEO engine.** Kbizz has 32 healthcare specialties; DoctorLogic has vertical pages. Our 3 industry pages are the start of this.
+8. **Dental-only as a credential.** Three of six say "this is all we do." We are broader (dental, ortho, medical); the copy should make dental depth obvious rather than apologize for breadth.
 9. **A free something.** Audit tool, pricing download, ebook, webinar. Low-cost lead capture for people not ready to book.
 
 ## What we do that they don't

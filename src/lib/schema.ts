@@ -21,7 +21,7 @@ export function organization() {
     areaServed: { '@type': 'Country', name: 'United States' },
     address: { '@type': 'PostalAddress', addressRegion: 'TX', addressCountry: 'US' },
     foundingDate: String(site.founded),
-    knowsAbout: ['Dental marketing', 'Orthodontic marketing', 'Medical practice marketing', 'Tattoo removal marketing', 'SEO', 'Google Ads', 'Web design', 'Review management', 'Listing management'],
+    knowsAbout: ['Dental marketing', 'Orthodontic marketing', 'Medical practice marketing', 'SEO', 'Google Ads', 'Web design', 'Review management', 'Listing management'],
     ...(sameAs.length ? { sameAs } : {}),
     contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', telephone: site.phoneHref, email: site.supportEmail, availableLanguage: 'en' }],
   };

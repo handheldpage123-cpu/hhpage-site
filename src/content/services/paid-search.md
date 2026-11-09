@@ -2,7 +2,7 @@
 title: "Google Ads and Local Services Ads for practices"
 metaTitle: "Google Ads Management for Practices"
 shortName: "Google Ads"
-description: "Google Ads and Local Services Ads management for dental, orthodontic, medical and tattoo removal practices. Tracked calls and bookings, fees explained up front."
+description: "Google Ads and Local Services Ads management for dental, orthodontic and medical practices. Tracked calls and bookings, fees explained up front."
 summary: "Google Ads and Local Services Ads management for practices, with tracked calls and bookings and fees explained up front."
 primaryKeyword: "google ads management for dentists"
 targetQuestions: ["How much should a dental practice spend on Google Ads?", "What is a good cost per lead for a medical practice?", "Are Local Services Ads worth it for a dental practice?"]
