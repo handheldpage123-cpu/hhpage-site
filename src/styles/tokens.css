@@ -25,6 +25,14 @@
   --warning: #B4541A;
   --focus: #2C56A3;
 
+  /* Data-viz ramp (case-study graphics): sequential blue, dark -> light in light mode */
+  --viz-t1: #1B3A72;
+  --viz-t2: #2C56A3;
+  --viz-t3: #6D90D1;
+  --viz-t4: #B7C9EB;
+  --viz-t-ink-dark: #FFFFFF;
+  --viz-t-ink-light: #131B2F;
+
   --font-display: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -82,6 +90,18 @@
     --success: #4CC28B;
     --warning: #F0965C;
     --focus: #86A8EA;
+  --viz-t1: #C3D3F0;
+  --viz-t2: #86A8EA;
+  --viz-t3: #5A7CC9;
+  --viz-t4: #35519A;
+  --viz-t-ink-dark: #0D1220;
+  --viz-t-ink-light: #E9EEF8;
+    --viz-t1: #C3D3F0;
+    --viz-t2: #86A8EA;
+    --viz-t3: #5A7CC9;
+    --viz-t4: #35519A;
+    --viz-t-ink-dark: #0D1220;
+    --viz-t-ink-light: #E9EEF8;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
   }

@@ -49,7 +49,7 @@ Record of choices that are not obvious from the code, with their status. Questio
 - **Founding year** in `site.ts` (2011, derived from "15 years"). Confirm.
 - **Redirects for `/billing/`, `/ach/`, `/ach-payment/`:** old site pages that clients may still use. Currently 302 to `/support/`. Decide: keep as pages, move to GHL, or confirm redirect.
 - **Privacy policy:** draft text; migrate the approved policy.
-- **Case studies:** placeholder only (draft, not built). Need real clients, numbers, quotes.
+- **Case studies:** three live as of 2026-11-03 (Hoffman Orthodontics, Apex Pulmonary Consultants, Mindful Pediatric Dentistry & Orthodontics), each with three takeaways and inline SVG graphics (`src/assets/viz`), a home-page screenshot (`public/images/work`) and a before/after table. The takeaway marked `featured: true` is what the home-page Results section shows. Numbers are from Semrush (Nov 2026), GA4 and GBP (Oct 2026); refresh quarterly. Placeholder entry kept as the format reference (draft). FOLLOW-UP: client quotes for all three; client sign-off on names/screenshots.
 - **Team page:** headshots and LinkedIn URLs if wanted.
 - **Social links** in `site.ts` for schema `sameAs`.
 - **OG image:** `/og-default.png` referenced, not yet created. Add a 1200×630 image to `public/`.
