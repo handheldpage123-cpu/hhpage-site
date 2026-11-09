@@ -43,7 +43,7 @@ const isActive = (href: string) => path === href || (href !== '/' && path.starts
   .site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: var(--space-6); }
   .site-nav a:not(.btn) { color: var(--ink); text-decoration: none; font-weight: 600; font-size: var(--text-sm); padding: var(--space-2) 0; border-bottom: 2px solid transparent; }
   .site-nav a[aria-current="page"] { border-bottom-color: var(--accent); }
-  .nav-toggle { display: none; background: none; border: 1px solid var(--line); border-radius: var(--radius-sm); width: 44px; height: 44px; position: relative; cursor: pointer; }
+  .nav-toggle { display: none; background: none; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); width: 44px; height: 44px; position: relative; cursor: pointer; }
   .nav-toggle__bar, .nav-toggle__bar::before, .nav-toggle__bar::after { content: ""; position: absolute; left: 11px; width: 20px; height: 2px; background: var(--ink); transition: transform 0.2s; }
   .nav-toggle__bar { top: 21px; }
   .nav-toggle__bar::before { top: -6px; left: 0; }

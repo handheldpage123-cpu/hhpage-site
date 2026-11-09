@@ -103,7 +103,7 @@ details.faq .faq__body { padding-bottom: var(--space-4); max-width: var(--measur
 .field label { font-weight: 600; font-size: var(--text-sm); }
 .field input, .field select, .field textarea {
   width: 100%; min-height: 48px; padding: 0.65rem 0.85rem;
-  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--radius);
 }
 .field textarea { min-height: 140px; resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); }
