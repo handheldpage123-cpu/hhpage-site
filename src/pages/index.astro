@@ -15,7 +15,7 @@ const industries = (await getCollection('industries', ({ data }) => !data.draft)
 const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
 const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.order).map((f) => ({ q: f.data.question, a: f.data.answer }));
 
-const industryIcon: Record<string, string> = { dental: 'tooth', orthodontic: 'braces', medical: 'medical', 'tattoo-removal': 'laser' };
+const industryIcon: Record<string, string> = { dental: 'tooth', orthodontic: 'braces', medical: 'medical' };
 const deal = [
   'Clear pricing, agreed before work starts.',
   'Month-to-month on monthly services.',
@@ -35,7 +35,7 @@ const description = site.description;
       <div class="hero__copy stack reveal">
         <p class="eyebrow eyebrow--dot">Web design and digital marketing for practices</p>
         <h1 class="hero__title">Practice marketing, <span class="hl">kept simple</span> and priced fairly.</h1>
-        <p class="lede">We build websites and run SEO, Google Ads, listings and reviews for dental, orthodontic, medical and tattoo removal practices. We keep it simple because simple is what works, and we will never push you to spend more than you need to.</p>
+        <p class="lede">We build websites and run SEO, Google Ads, listings and reviews for dental, orthodontic and medical practices. We keep it simple because simple is what works, and we will never push you to spend more than you need to.</p>
         <div class="cluster hero__actions">
           <a class="btn btn--primary btn--lg" href={site.primaryCta.href}>{site.primaryCta.label} <Icon name="arrow" size={18} /></a>
           <a class="btn btn--secondary btn--lg" href="/how-we-work/">How we work</a>
