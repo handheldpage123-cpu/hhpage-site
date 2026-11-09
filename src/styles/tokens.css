@@ -14,12 +14,14 @@
   --ink: #131B2F;
   --muted: #59647A;
   --line: #DCE2EE;
-  --accent: #EE6A1F;
+  --line-strong: #7F8BA3; /* 3:1+ on paper/surface: form-control and toggle borders (WCAG 1.4.11) */
+  --accent: #E35F12; /* 3.3:1 on paper for button fills; keep dark ink text on it */
   --accent-ink: #131B2F;
+  --accent-text: #AE4E12; /* orange used AS text: 4.9:1 on paper */
   --accent-soft: #FDEBDF;
   --blue: #2C56A3;
   --blue-soft: #E5ECF8;
-  --success: #1D8657;
+  --success: #17794E; /* 5.0:1 on paper */
   --warning: #B4541A;
   --focus: #2C56A3;
 
@@ -79,8 +81,10 @@
     --ink: #E9EEF8;
     --muted: #9BA6BC;
     --line: #28324A;
+    --line-strong: #64718F;
     --accent: #FF7F3F;
     --accent-ink: #1A0E05;
+    --accent-text: #FF7F3F;
     --accent-soft: #3A2214;
     --blue: #86A8EA;
     --blue-soft: #1A2640;
@@ -111,8 +115,10 @@
   --ink: #E9EEF8;
   --muted: #9BA6BC;
   --line: #28324A;
+  --line-strong: #64718F;
   --accent: #FF7F3F;
   --accent-ink: #1A0E05;
+  --accent-text: #FF7F3F;
   --accent-soft: #3A2214;
   --blue: #86A8EA;
   --blue-soft: #1A2640;
