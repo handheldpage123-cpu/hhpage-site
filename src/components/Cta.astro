@@ -1,5 +1,6 @@
 ---
 import { site } from '@/data/site';
+import Icon from '@/components/Icon.astro';
 interface Props { title?: string; body?: string; primary?: { label: string; href: string }; secondary?: { label: string; href: string } | null; }
 const {
   title = 'Ready to see what simple, well-run marketing can do?',
@@ -10,25 +11,37 @@ const {
 ---
 <section class="cta section">
   <div class="container">
-    <div class="cta__box">
+    <div class="cta__box reveal">
+      <div class="cta__glow" aria-hidden="true"></div>
       <div class="cta__text">
         <h2>{title}</h2>
         <p>{body}</p>
       </div>
       <div class="cluster">
-        <a class="btn btn--primary" href={primary.href}>{primary.label}</a>
-        {secondary && <a class="btn btn--secondary" href={secondary.href}>{secondary.label}</a>}
+        <a class="btn btn--primary btn--lg" href={primary.href}>{primary.label} <Icon name="arrow" size={18} /></a>
+        {secondary && <a class="btn btn--secondary btn--lg" href={secondary.href}>{secondary.label}</a>}
       </div>
     </div>
   </div>
 </section>
 <style>
-  /* Inverted panel in light mode; a bordered surface in dark mode (an inverted panel there would be glaring). */
-  .cta__box { --cta-bg: var(--ink); --cta-fg: var(--paper); --cta-muted: var(--line); background: var(--cta-bg); color: var(--cta-fg); border-radius: var(--radius-lg); padding: var(--space-12) var(--space-8); display: grid; gap: var(--space-8); border: 1px solid var(--cta-bg); }
+  /* The finale: an inverted panel in light mode, a deep blue-black panel in dark mode, both with an orange/blue glow. */
+  .cta__box { --cta-bg: var(--ink); --cta-fg: var(--paper); --cta-muted: var(--line);
+    position: relative; overflow: hidden; isolation: isolate;
+    background: var(--cta-bg); color: var(--cta-fg); border-radius: var(--radius-lg); padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 3.5rem); display: grid; gap: var(--space-8); border: 1px solid var(--cta-bg); }
+  .cta__glow { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(55% 80% at 100% 100%, color-mix(in srgb, var(--accent) 45%, transparent), transparent 70%),
+      radial-gradient(45% 70% at 0% 0%, color-mix(in srgb, var(--blue) 40%, transparent), transparent 70%); }
+  .cta__glow::after { content: ""; position: absolute; inset: 0; opacity: .35;
+    background-image: radial-gradient(rgba(255,255,255,.25) 1px, transparent 1px); background-size: 22px 22px;
+    mask-image: radial-gradient(60% 80% at 80% 50%, #000, transparent); }
   @media (min-width: 800px) { .cta__box { grid-template-columns: 1fr auto; align-items: center; } }
   .cta__text { display: grid; gap: var(--space-3); max-width: var(--measure); }
+  .cta__text h2 { font-size: var(--text-3xl); letter-spacing: -0.02em; }
   .cta__text p { color: var(--cta-muted); }
-  .cta .btn--secondary { color: var(--cta-fg); border-color: var(--cta-muted); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta__box { --cta-bg: var(--surface); --cta-fg: var(--ink); --cta-muted: var(--muted); border-color: var(--line); } }
-  :root[data-theme="dark"] .cta__box { --cta-bg: var(--surface); --cta-fg: var(--ink); --cta-muted: var(--muted); border-color: var(--line); }
+  .cta .btn--secondary { color: var(--cta-fg); border-color: color-mix(in srgb, var(--cta-fg) 35%, transparent); }
+  .cta .btn--secondary:hover { border-color: var(--cta-fg); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta__box { --cta-bg: #0A1430; --cta-fg: var(--ink); --cta-muted: var(--muted); border-color: var(--line); } }
+  :root[data-theme="dark"] .cta__box { --cta-bg: #0A1430; --cta-fg: var(--ink); --cta-muted: var(--muted); border-color: var(--line); }
 </style>

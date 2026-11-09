@@ -137,3 +137,32 @@ details.faq .faq__body { padding-bottom: var(--space-4); max-width: var(--measur
 .hh-viz .gridline { stroke: var(--v-line); stroke-width: 1; }
 .hh-viz .src { font-family: var(--font-mono); font-size: 10px; fill: var(--v-muted); }
 .viz { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+
+/* ---------- 2026 refresh: emphasis, motion, polish ---------- */
+.hl { position: relative; white-space: nowrap; }
+.hl::after { content: ""; position: absolute; left: -0.05em; right: -0.05em; bottom: 0.08em; height: 0.28em; z-index: -1; border-radius: 3px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 55%, transparent), color-mix(in srgb, var(--accent) 25%, transparent)); }
+.eyebrow--dot { display: inline-flex; align-items: center; gap: 0.6em; }
+.eyebrow--dot::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.btn--lg { min-height: 54px; padding: 0.85rem 1.5rem; font-size: var(--text-base); }
+.btn { transition: transform .15s ease, box-shadow .15s ease, filter .15s ease, border-color .15s ease; }
+.btn--primary { box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 30%, transparent); }
+.btn--primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 38%, transparent); }
+.btn .icon { transition: transform .2s; }
+.btn:hover .icon { transform: translateX(3px); }
+.more { display: inline-flex; align-items: center; gap: 0.35em; }
+.more .icon { transition: transform .2s; }
+a:hover .more .icon { transform: translateX(3px); }
+
+/* FAQ rows get a hover surface and more room */
+details.faq summary { padding: var(--space-5) var(--space-3); margin-inline: calc(-1 * var(--space-3)); border-radius: var(--radius); transition: background .15s; align-items: center; }
+details.faq summary:hover { background: var(--surface); }
+details.faq summary::after { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--line); font-size: 1.1rem; line-height: 1; transition: transform .2s, background .2s; flex: none; }
+details.faq[open] summary::after { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+details.faq .faq__body { padding: 0 var(--space-3) var(--space-5); }
+
+/* Scroll reveal. Opt-in via .reveal; JS in Base.astro adds .is-in. Without JS everything stays visible. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease var(--delay, 0ms), transform .6s cubic-bezier(.2,.7,.2,1) var(--delay, 0ms); }
+  html.js .reveal.is-in { opacity: 1; transform: none; }
+}

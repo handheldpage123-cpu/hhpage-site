@@ -67,6 +67,28 @@ const jsonLd = graph(
     <Analytics />
     <!-- EqualBrowse accessibility widget (Q14). Deferred so it never blocks render. -->
     <script src={site.equalBrowseScript} defer is:inline></script>
+    <script>
+      // Scroll reveal + count-up. Progressive: without JS nothing is hidden.
+      document.documentElement.classList.add('js');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          e.target.classList.add('is-in');
+          e.target.querySelectorAll<HTMLElement>('[data-count]').forEach(countUp);
+          if (e.target.hasAttribute('data-count')) countUp(e.target as HTMLElement);
+          io.unobserve(e.target);
+        }
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      document.querySelectorAll('.reveal, [data-count]').forEach((el) => io.observe(el));
+      function countUp(el: HTMLElement) {
+        if (el.dataset.done) return; el.dataset.done = '1';
+        const end = Number(el.dataset.count); if (!Number.isFinite(end) || reduce) { el.textContent = String(end); return; }
+        const t0 = performance.now(), dur = 1100;
+        const tick = (t: number) => { const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(end * e).toLocaleString(); if (p < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      }
+    </script>
   </body>
 </html>
 
