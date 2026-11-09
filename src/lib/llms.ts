@@ -22,7 +22,7 @@ function staticPages(): LlmPage[] {
   const facts = [
     `**Name:** ${site.name} (${site.shortName}), legal name ${site.legalName}.`,
     `**What we do:** web design and development, SEO, Google Ads and Local Services Ads, listing management, review management, social media management, and website accessibility (EqualBrowse) for practices. Most practices start with the Essentials plan (website hosting and management, listing management, reviews displayed on the site, EqualBrowse widget) for one monthly fee; Google Ads and advanced review management are priced separately.`,
-    `**Who we serve:** dental, orthodontic, medical and tattoo removal practices across the United States. Based in Texas.`,
+    `**Who we serve:** dental, orthodontic and medical practices across the United States. Based in Texas.`,
     `**Experience:** ${site.proof[1].value} ${site.proof[1].label}; ${site.proof[0].value} ${site.proof[0].label}.`,
     `**Positioning:** simple, transparent marketing, priced fairly, never upsold. Clear quotes before work starts, month-to-month monthly services (optional 12-month term can reduce or waive the website fee), clients own their website and data.`,
     `**Contact:** ${site.phone}, ${site.email}. Support ${site.supportHours}. Book a call: ${abs('/book/')}.`,
@@ -85,7 +85,7 @@ export function renderLlmsTxt(pages: LlmPage[]): string {
   out.push('');
   out.push(`> ${site.description}`);
   out.push('');
-  out.push(`Hand Held Page (HHPage), based in Texas, serves dental, orthodontic, medical and tattoo removal practices across the United States with websites, SEO, Google Ads and Local Services Ads, listing management, review management, social media and accessibility. Positioning: simple, transparent, priced fairly, never upsold. Clear quotes; monthly services are month to month; clients own their website and data. Contact: ${site.phone}, ${site.email}. Full text of every page: ${abs('/llms-full.txt')}.`);
+  out.push(`Hand Held Page (HHPage), based in Texas, serves dental, orthodontic and medical practices across the United States with websites, SEO, Google Ads and Local Services Ads, listing management, review management, social media and accessibility. Positioning: simple, transparent, priced fairly, never upsold. Clear quotes; monthly services are month to month; clients own their website and data. Contact: ${site.phone}, ${site.email}. Full text of every page: ${abs('/llms-full.txt')}.`);
   out.push('');
   for (const sec of sections) {
     const list = pages.filter((p) => p.section === sec);

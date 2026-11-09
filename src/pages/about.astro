@@ -8,7 +8,7 @@ import { breadcrumbs, person } from '@/lib/schema';
 import { site } from '@/data/site';
 const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
 const title = 'About';
-const description = 'Hand Held Page is a small Texas-based web and marketing team that has served 100+ dental, orthodontic, medical and tattoo removal practices for fifteen years. Meet the people you would work with.';
+const description = 'Hand Held Page is a small Texas-based web and marketing team that has served 100+ dental, orthodontic and medical practices for fifteen years. Meet the people you would work with.';
 const url = site.url + '/about/';
 const schema = [breadcrumbs([{ name: 'Home', url: site.url + '/' }, { name: 'About', url }]), ...team.map((t) => person({ name: t.data.name, role: t.data.role, url: `${url}#${t.id}`, sameAs: t.data.linkedin ? [t.data.linkedin] : [] }))];
 ---
