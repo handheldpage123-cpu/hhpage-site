@@ -18,7 +18,11 @@ interface Props {
   submitLabel?: string;
 }
 const { kind, heading, submitLabel = kind === 'support' ? 'Send support request' : 'Submit' } = Astro.props;
-const webhook = kind === 'support' ? import.meta.env.PUBLIC_GHL_WEBHOOK_SUPPORT : import.meta.env.PUBLIC_GHL_WEBHOOK_CONTACT;
+// The contact webhook is a public endpoint by design (the browser posts to it), so a
+// default lives here; PUBLIC_GHL_WEBHOOK_CONTACT in Cloudflare overrides it.
+// GHL workflow: "HHPage Website - Contact Form" in the HHpage sub-account.
+const CONTACT_WEBHOOK_DEFAULT = 'https://services.leadconnectorhq.com/hooks/yZOPS0fxvEYgKT5HDKtj/webhook-trigger/9e614483-3948-488a-9864-d91c7a3f2144';
+const webhook = kind === 'support' ? import.meta.env.PUBLIC_GHL_WEBHOOK_SUPPORT : (import.meta.env.PUBLIC_GHL_WEBHOOK_CONTACT || CONTACT_WEBHOOK_DEFAULT);
 const id = `form-${kind}`;
 // Suggestions only: the field is free text so any specialty can be entered.
 const specialties = ['General dentistry', 'Orthodontics', 'Pediatric dentistry', 'Oral surgery', 'Periodontics', 'Endodontics', 'Prosthodontics', 'Dermatology', 'Family medicine', 'Orthopedics', 'Pulmonology', 'Gastroenterology', 'Emergency medicine'];
