@@ -17,62 +17,98 @@ interface Props {
   heading?: string;
   submitLabel?: string;
 }
-const { kind, heading, submitLabel = kind === 'support' ? 'Send support request' : 'Send message' } = Astro.props;
+const { kind, heading, submitLabel = kind === 'support' ? 'Send support request' : 'Submit' } = Astro.props;
 const webhook = kind === 'support' ? import.meta.env.PUBLIC_GHL_WEBHOOK_SUPPORT : import.meta.env.PUBLIC_GHL_WEBHOOK_CONTACT;
 const id = `form-${kind}`;
+// Suggestions only: the field is free text so any specialty can be entered.
+const specialties = ['General dentistry', 'Orthodontics', 'Pediatric dentistry', 'Oral surgery', 'Periodontics', 'Endodontics', 'Prosthodontics', 'Dermatology', 'Family medicine', 'Orthopedics', 'Pulmonology', 'Gastroenterology', 'Emergency medicine'];
 ---
 <form class="form" id={id} data-kind={kind} data-webhook={webhook ?? ''} novalidate>
   {heading && <h2>{heading}</h2>}
-  <div class="grid grid--2">
-    <div class="field">
-      <label for={`${id}-name`}>Your name</label>
-      <input id={`${id}-name`} name="name" type="text" autocomplete="name" required />
-    </div>
-    <div class="field">
-      <label for={`${id}-practice`}>Practice or business</label>
-      <input id={`${id}-practice`} name="practice" type="text" autocomplete="organization" />
-    </div>
-    <div class="field">
-      <label for={`${id}-email`}>Email</label>
-      <input id={`${id}-email`} name="email" type="email" autocomplete="email" inputmode="email" required />
-    </div>
-    <div class="field">
-      <label for={`${id}-phone`}>Phone <span class="hint">(optional)</span></label>
-      <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" />
-    </div>
-  </div>
   {kind === 'support' ? (
-    <div class="field">
-      <label for={`${id}-topic`}>What do you need help with?</label>
-      <select id={`${id}-topic`} name="topic" required>
-        <option value="">Choose one</option>
-        <option>Website change or bug</option>
-        <option>Hosting, domain or email</option>
-        <option>Google Ads or Local Services Ads</option>
-        <option>Google Business Profile or listings</option>
-        <option>Reviews</option>
-        <option>Billing or account</option>
-        <option>Something else</option>
-      </select>
-    </div>
+    <>
+      <div class="grid grid--2">
+        <div class="field">
+          <label for={`${id}-name`}>Your name</label>
+          <input id={`${id}-name`} name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for={`${id}-practice`}>Practice or business</label>
+          <input id={`${id}-practice`} name="practice" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for={`${id}-email`}>Email</label>
+          <input id={`${id}-email`} name="email" type="email" autocomplete="email" inputmode="email" required />
+        </div>
+        <div class="field">
+          <label for={`${id}-phone`}>Phone <span class="hint">(optional)</span></label>
+          <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+        </div>
+      </div>
+      <div class="field">
+        <label for={`${id}-topic`}>What do you need help with?</label>
+        <select id={`${id}-topic`} name="topic" required>
+          <option value="">Choose one</option>
+          <option>Website change or bug</option>
+          <option>Hosting, domain or email</option>
+          <option>Google Ads or Local Services Ads</option>
+          <option>Google Business Profile or listings</option>
+          <option>Reviews</option>
+          <option>Billing or account</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for={`${id}-message`}>Tell us what is happening</label>
+        <textarea id={`${id}-message`} name="message" required></textarea>
+        <span class="hint">Include the page URL if it is about your website.</span>
+      </div>
+    </>
   ) : (
-    <div class="field">
-      <label for={`${id}-interest`}>What are you looking for?</label>
-      <select id={`${id}-interest`} name="interest">
-        <option value="">Not sure yet</option>
-        <option>New website</option>
-        <option>SEO</option>
-        <option>Google Ads or Local Services Ads</option>
-        <option>Listings and reviews</option>
-        <option>Everything, I want one team to run it</option>
-      </select>
-    </div>
+    <>
+      <div class="grid grid--2">
+        <div class="field">
+          <label for={`${id}-name`}>Name</label>
+          <input id={`${id}-name`} name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for={`${id}-practice`}>Practice name</label>
+          <input id={`${id}-practice`} name="practice" type="text" autocomplete="organization" required />
+        </div>
+        <div class="field">
+          <label for={`${id}-specialty`}>Medical specialty</label>
+          <input id={`${id}-specialty`} name="specialty" type="text" list={`${id}-specialties`} placeholder="e.g. Orthodontics" required />
+          <datalist id={`${id}-specialties`}>
+            {specialties.map((s) => <option value={s} />)}
+          </datalist>
+        </div>
+        <div class="field">
+          <label for={`${id}-email`}>Email</label>
+          <input id={`${id}-email`} name="email" type="email" autocomplete="email" inputmode="email" required />
+        </div>
+        <div class="field">
+          <label for={`${id}-phone`}>Phone</label>
+          <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+        </div>
+        <div class="field">
+          <label for={`${id}-url`}>Practice URL <span class="hint">(optional)</span></label>
+          <input id={`${id}-url`} name="practice_url" type="text" autocomplete="url" inputmode="url" placeholder="yourpractice.com" />
+        </div>
+      </div>
+      <fieldset class="choices">
+        <legend>Best way to communicate</legend>
+        <div class="cluster">
+          <label><input type="radio" name="preferred_contact" value="Phone" required /> Phone</label>
+          <label><input type="radio" name="preferred_contact" value="Text" /> Text</label>
+          <label><input type="radio" name="preferred_contact" value="Email" /> Email</label>
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for={`${id}-message`}>How can we help you?</label>
+        <textarea id={`${id}-message`} name="message" required></textarea>
+      </div>
+    </>
   )}
-  <div class="field">
-    <label for={`${id}-message`}>{kind === 'support' ? 'Tell us what is happening' : 'Anything we should know?'}</label>
-    <textarea id={`${id}-message`} name="message" required={kind === 'support'}></textarea>
-    {kind === 'support' && <span class="hint">Include the page URL if it is about your website.</span>}
-  </div>
   <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website_url" type="text" tabindex="-1" autocomplete="off" /></label></div>
   <div class="cluster">
     <button class="btn btn--primary" type="submit">{submitLabel}</button>
@@ -91,6 +127,11 @@ const id = `form-${kind}`;
       const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
       if (data.website_url) return; // honeypot
       delete data.website_url;
+      // Bare domains are fine to type; store a full URL for the CRM.
+      if (data.practice_url && !/^https?:\/\//i.test(data.practice_url)) data.practice_url = `https://${data.practice_url.trim()}`;
+      const [first_name, ...rest] = (data.name ?? '').trim().split(/\s+/);
+      data.first_name = first_name ?? '';
+      data.last_name = rest.join(' ');
       const payload = { ...data, form_name: form.dataset.kind, page: location.href, submitted_at: new Date().toISOString() };
       const webhook = form.dataset.webhook;
       button.disabled = true;
@@ -120,3 +161,10 @@ const id = `form-${kind}`;
   });
   declare global { interface Window { dataLayer: unknown[]; gtag?: (...args: unknown[]) => void } }
 </script>
+
+<style>
+  .choices { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+  .choices legend { font-weight: 600; font-size: var(--text-sm); padding: 0; margin-bottom: var(--space-2); }
+  .choices label { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding-right: var(--space-3); cursor: pointer; }
+  .choices input { width: 1.15rem; height: 1.15rem; accent-color: var(--blue); }
+</style>
