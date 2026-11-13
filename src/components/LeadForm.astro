@@ -148,6 +148,8 @@ const specialties = ['General dentistry', 'Orthodontics', 'Pediatric dentistry',
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ event: 'form_submit', form_name: form.dataset.kind });
         if (window.gtag) window.gtag('event', 'form_submit', { form_name: form.dataset.kind });
+        // Contact leads land on the confirmation page once GHL has accepted the post.
+        if (webhook && form.dataset.kind === 'contact') { location.assign('/contact/thank-you/'); return; }
         status.dataset.state = 'ok';
         status.textContent = form.dataset.kind === 'support' ? 'Got it. We reply within one business day, usually faster.' : 'Thanks. We will be in touch within one business day.';
         form.reset();

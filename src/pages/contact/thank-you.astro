@@ -1,0 +1,37 @@
+---
+/**
+ * Confirmation page shown after the contact form posts to GoHighLevel.
+ * noindex and out of the sitemap: it is only reached by submitting the form.
+ */
+import Base from '@/layouts/Base.astro';
+import { site } from '@/data/site';
+const title = 'Thank you';
+const description = 'Your message reached Hand Held Page. We will be in touch soon.';
+---
+<Base title={title} description={description} noindex>
+  <section class="section">
+    <div class="container narrow stack">
+      <p class="eyebrow">Message received</p>
+      <h1>Thank you. Your message came through.</h1>
+      <p class="lede">Your submission was successful and we'll be in touch soon, usually within one business day. A confirmation is on its way to your inbox.</p>
+      <div class="grid thanks">
+        <div class="card stack">
+          <h2 class="h3">Want to talk sooner?</h2>
+          <p class="meta">Pick a time that works for you and we will do the homework on your practice before the call.</p>
+          <a class="btn btn--primary" href="/book/">Book a strategy call</a>
+        </div>
+        <div class="card stack">
+          <h2 class="h3">Contact us</h2>
+          <p><a href={`tel:${site.phoneHref}`}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          <p class="meta">Monday to Friday, 8am to 5pm Central.</p>
+        </div>
+      </div>
+      <p><a href="/">Back to the home page</a></p>
+    </div>
+  </section>
+</Base>
+<style>
+  .thanks { grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .thanks { grid-template-columns: 1fr 1fr; align-items: start; } }
+  .h3 { font-size: var(--text-xl); }
+</style>

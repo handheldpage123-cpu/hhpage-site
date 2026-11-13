@@ -3,6 +3,7 @@
 ## Unreleased — contact form fields for GoHighLevel (2026-11-13)
 
 - Contact form (`LeadForm kind="contact"`) now collects: name, practice name, medical specialty (free text with suggestions), email, phone, practice URL (optional), best way to communicate (phone / text / email), and "How can we help you?", with a Submit button. The support form is unchanged.
+- New `/contact/thank-you/` confirmation page (noindex, out of the sitemap): success message, contact details, Book a strategy call link. The contact form redirects there after GHL accepts the post.
 - Payload keys sent to the GHL inbound webhook: `name`, `first_name`, `last_name`, `practice`, `specialty`, `email`, `phone`, `practice_url`, `preferred_contact`, `message`, `form_name`, `page`, `submitted_at`.
 
 ## Unreleased — hidden billing/ACH pages and hidden-page plumbing (2026-10-29)
