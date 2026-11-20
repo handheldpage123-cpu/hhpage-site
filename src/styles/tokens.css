@@ -25,6 +25,12 @@
   --warning: #B4541A;
   --focus: #2C56A3;
 
+  /* Fixed colors for sections that stay navy in both themes (home hero). White on --navy is 16.9:1. */
+  --navy: #131B2F;
+  --on-navy: #FFFFFF;
+  --on-navy-muted: #D5DCEA; /* 12:1 on navy */
+  --accent-on-navy: #FF7F3F; /* check marks only */
+
   --font-display: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
