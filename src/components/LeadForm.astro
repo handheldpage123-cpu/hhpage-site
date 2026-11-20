@@ -16,18 +16,22 @@ interface Props {
   kind: 'contact' | 'support';
   heading?: string;
   submitLabel?: string;
+  /** 'short' is the five-field contact form used in the home page hero. Same webhook and workflow as the full form. */
+  variant?: 'full' | 'short';
+  /** Sent as form_location so GoHighLevel can tell where on the site a lead came from. */
+  location?: string;
 }
-const { kind, heading, submitLabel = kind === 'support' ? 'Send support request' : 'Submit' } = Astro.props;
+const { kind, heading, submitLabel = kind === 'support' ? 'Send support request' : 'Submit', variant = 'full', location } = Astro.props;
 // The contact webhook is a public endpoint by design (the browser posts to it), so a
 // default lives here; PUBLIC_GHL_WEBHOOK_CONTACT in Cloudflare overrides it.
 // GHL workflow: "HHPage Website - Contact Form" in the HHpage sub-account.
 const CONTACT_WEBHOOK_DEFAULT = 'https://services.leadconnectorhq.com/hooks/yZOPS0fxvEYgKT5HDKtj/webhook-trigger/9e614483-3948-488a-9864-d91c7a3f2144';
 const webhook = kind === 'support' ? import.meta.env.PUBLIC_GHL_WEBHOOK_SUPPORT : (import.meta.env.PUBLIC_GHL_WEBHOOK_CONTACT || CONTACT_WEBHOOK_DEFAULT);
-const id = `form-${kind}`;
+const id = variant === 'short' ? `form-${kind}-short` : `form-${kind}`;
 // Suggestions only: the field is free text so any specialty can be entered.
 const specialties = ['General dentistry', 'Orthodontics', 'Pediatric dentistry', 'Oral surgery', 'Periodontics', 'Endodontics', 'Prosthodontics', 'Dermatology', 'Family medicine', 'Orthopedics', 'Pulmonology', 'Gastroenterology', 'Emergency medicine'];
 ---
-<form class="form" id={id} data-kind={kind} data-webhook={webhook ?? ''} novalidate>
+<form class="form" id={id} data-kind={kind} data-webhook={webhook ?? ''} data-location={location} novalidate>
   {heading && <h2>{heading}</h2>}
   {kind === 'support' ? (
     <>
@@ -66,6 +70,32 @@ const specialties = ['General dentistry', 'Orthodontics', 'Pediatric dentistry',
         <label for={`${id}-message`}>Tell us what is happening</label>
         <textarea id={`${id}-message`} name="message" required></textarea>
         <span class="hint">Include the page URL if it is about your website.</span>
+      </div>
+    </>
+  ) : variant === 'short' ? (
+    <>
+      <div class="field">
+        <label for={`${id}-name`}>Name</label>
+        <input id={`${id}-name`} name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for={`${id}-practice`}>Practice name</label>
+        <input id={`${id}-practice`} name="practice" type="text" autocomplete="organization" required />
+      </div>
+      <div class="field">
+        <label for={`${id}-email`}>Email</label>
+        <input id={`${id}-email`} name="email" type="email" autocomplete="email" inputmode="email" required />
+      </div>
+      <div class="field">
+        <label for={`${id}-phone`}>Phone</label>
+        <input id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+      </div>
+      <div class="field">
+        <label for={`${id}-specialty`}>Specialty</label>
+        <input id={`${id}-specialty`} name="specialty" type="text" list={`${id}-specialties`} placeholder="e.g. Orthodontics" required />
+        <datalist id={`${id}-specialties`}>
+          {specialties.map((s) => <option value={s} />)}
+        </datalist>
       </div>
     </>
   ) : (
@@ -136,7 +166,7 @@ const specialties = ['General dentistry', 'Orthodontics', 'Pediatric dentistry',
       const [first_name, ...rest] = (data.name ?? '').trim().split(/\s+/);
       data.first_name = first_name ?? '';
       data.last_name = rest.join(' ');
-      const payload = { ...data, form_name: form.dataset.kind, page: location.href, submitted_at: new Date().toISOString() };
+      const payload = { ...data, form_name: form.dataset.kind, ...(form.dataset.location ? { form_location: form.dataset.location } : {}), page: location.href, submitted_at: new Date().toISOString() };
       const webhook = form.dataset.webhook;
       button.disabled = true;
       status.textContent = 'Sending…';

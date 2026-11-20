@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — booking-first home hero (2026-11-20)
+
+- Home hero rebuilt from design direction 7 (booking first): H1 "Book a strategy call. Leave with a plan and a price.", three things the call covers, the phone number, and a short strategy call form in the hero. Text sits on a fixed navy tint over the photo so it reads the same in light and dark themes (new tokens `--navy`, `--on-navy`, `--on-navy-muted`, `--accent-on-navy`).
+- `LeadForm` gains `variant="short"` (name, practice name, email, phone, specialty) and `location`. The short form posts to the same GoHighLevel contact webhook with `form_name: "contact"` plus `form_location: "home_hero"`, and redirects to `/contact/thank-you/`. The full eight-field form on `/contact/` is unchanged.
+- The hero photo is a generated placeholder (`public/images/placeholder-hero-office*.webp`), labeled on the page. Replace it with a real client office photo before launch.
+- "The deal" list moved out of the hero to its own short section under the proof bar.
+
 ## Unreleased — contact form fields for GoHighLevel (2026-11-13)
 
 - Contact form (`LeadForm kind="contact"`) now collects: name, practice name, medical specialty (free text with suggestions), email, phone, practice URL (optional), best way to communicate (phone / text / email), and "How can we help you?", with a Submit button. The support form is unchanged.
